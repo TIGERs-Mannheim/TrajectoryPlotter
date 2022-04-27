@@ -132,7 +132,8 @@ class BangBangTrajectory1D:
             shortest = BangBangTrajectory1D.generateShortest(initial_pos, final_pos, initial_vel, max_vel, max_acc)
             if shortest[-1].t_end + CONSTANT_SPEED_DURATION / 2 - ACCURACY < target_time:
                 return shortest
-            BangBangTrajectory1D.slowDownFastest(parts, final_pos, max_vel, max_acc, target_time)
+            BangBangTrajectory1D.slowDownFastest(parts, initial_pos, final_pos, initial_vel, max_vel, max_acc,
+                                                 target_time)
             return finish_up(parts)
 
     @staticmethod
@@ -235,11 +236,9 @@ class BangBangTrajectory1D:
             parts.append(new_part)
 
     @staticmethod
-    def slowDownFastest(parts: List[BBTrajectoryPart], final_pos: float, max_vel: float, max_acc: float,
-                        target_time: float):
-        if len(parts) == 1:
-            pass
-        elif len(parts) == 2:
+    def slowDownFastest(parts: List[BBTrajectoryPart], initial_pos: float, final_pos: float, initial_vel: float,
+                        max_vel: float, max_acc: float, target_time: float):
+        if len(parts) == 2:
             assert math.isclose(parts[-1].acc, 0.0)
             # https://www.wolframalpha.com/input?i=solve+v_0*t_1+%3Dv_0*t_2%2B1%2F2*a*Power%5Bt_2%2C2%5D%2Bv_1*t_3%2C+v_1+%3D+v_0%2Ba*t_2%2C+t_1%2Bt%3Dt_2%2Bt_3+for+v_1%2Ct_1%2C++t_2
             t3 = CONSTANT_SPEED_DURATION / 2
@@ -282,10 +281,31 @@ class BangBangTrajectory1D:
                 parts[3].acc = 0.0
                 parts[3].v0 = parts[2].v0 + a * t_diff
                 parts[3].s0 = parts[2].s0 + 0.5 * (parts[2].v0 + parts[3].v0) * t_diff
-            else:
-                pass
-        else:
-            raise NotImplementedError
+                return
+
+                # https://www.wolframalpha.com/input?i=solve+s+%3D+v_0*t_1%2B1%2F2*a*Power%5Bt_1%2C2%5D%2Bt_2*v_1%2C+v_1+%3D+v_0+%2B+a*t_1%2C+t+%3D+t_1%2Bt_2+for+t_1%2C+t_2%2C+v_1
+
+        v0 = initial_vel
+        s = final_pos - initial_pos
+        t = target_time
+
+        a = max_acc if v0 * target_time < s else - max_acc
+
+        t2 = math.sqrt(a * (a * t ** 2 - 2 * s + 2 * t * v0)) / max_acc
+        t1 = t - t2
+
+        if len(parts) == 1:
+            parts.append(BBTrajectoryPart())
+
+        parts[0].t_end = t1
+        parts[0].acc = a
+        parts[0].v0 = v0
+        parts[0].s0 = initial_pos
+
+        parts[1].t_end = target_time
+        parts[1].acc = 0
+        parts[1].v0 = v0 + t1 * a
+        parts[1].s0 = initial_pos + 0.5 * (v0 + parts[1].v0) * t1
 
     @staticmethod
     def calcFastestDirect(initial_pos: float, final_pos: float, initial_vel: float, max_vel: float, max_acc: float) \
