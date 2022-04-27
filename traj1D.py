@@ -2,7 +2,7 @@ import math
 from typing import List, Optional
 
 ACCURACY = 0.001
-CONSTANT_SPEED_DURATION = 1.0
+CONSTANT_SPEED_DURATION = 0.5
 
 
 class BBTrajectoryPart:
@@ -67,7 +67,7 @@ class BangBangTrajectory1D:
 
     def generate(self, initial_pos: float, final_pos: float, initial_vel: float, max_vel: float, max_acc: float,
                  target_time=None):
-        if target_time is None:
+        if target_time is None or target_time < 0:
             self.checkAndAppendParts(
                 BangBangTrajectory1D.generateShortest(initial_pos, final_pos, initial_vel, max_vel, max_acc))
         else:
@@ -112,7 +112,6 @@ class BangBangTrajectory1D:
                       target_time) -> List[BBTrajectoryPart]:
 
         def finish_up(overshooting_parts: List[BBTrajectoryPart]):
-            BangBangTrajectory1D.appendConstantSpeedPart(overshooting_parts)
             t_diff = overshooting_parts[-1].t_end - overshooting_parts[-2].t_end \
                 if len(overshooting_parts) > 1 \
                 else overshooting_parts[-1].t_end
@@ -162,7 +161,7 @@ class BangBangTrajectory1D:
                 t_diff = last_part.t_end - last_last_t_end
                 v1 = last_part.v0 + last_part.acc * t_diff
                 s1 = last_part.s0 + 0.5 * (last_part.v0 + v1) * t_diff
-                assert not math.isclose(last_part.acc, current_part.acc)
+                # assert not math.isclose(last_part.acc, current_part.acc)
                 assert t_diff >= 0, "t_diff >= 0"
                 assert math.isclose(v1, current_part.v0), "{} != {}".format(v1, current_part.v0)
                 assert math.isclose(s1, current_part.s0), "{} != {}".format(s1, current_part.s0)
@@ -218,22 +217,6 @@ class BangBangTrajectory1D:
                 return False, fastest_overshot, "too-fast"
 
         return True, fastest_direct, "direct-fast"
-
-    @staticmethod
-    def appendConstantSpeedPart(parts: List[BBTrajectoryPart]):
-        if len(parts) == 0:
-            raise NotImplementedError
-        if math.isclose(parts[-1].acc, 0):
-            parts[-1].t_end += CONSTANT_SPEED_DURATION / 2
-        else:
-            last = parts[-1]
-            t_diff = last.t_end - parts[-2].t_end if len(parts) >= 2 else last.t_end
-            new_part = BBTrajectoryPart()
-            new_part.v0 = last.v0 + last.acc * t_diff
-            new_part.s0 = last.s0 + 0.5 * (last.v0 + new_part.v0) * t_diff
-            new_part.acc = 0.0
-            new_part.t_end = last.t_end + CONSTANT_SPEED_DURATION / 2
-            parts.append(new_part)
 
     @staticmethod
     def slowDownFastest(parts: List[BBTrajectoryPart], initial_pos: float, final_pos: float, initial_vel: float,
