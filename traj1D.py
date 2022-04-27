@@ -115,14 +115,13 @@ class BangBangTrajectory1D:
             t_diff = overshooting_parts[-1].t_end - overshooting_parts[-2].t_end \
                 if len(overshooting_parts) > 1 \
                 else overshooting_parts[-1].t_end
+            a = overshooting_parts[-1].acc
+            v0 = overshooting_parts[-1].v0
+            s0 = overshooting_parts[-1].s0
+            v1 = v0 + a * t_diff
+            s1 = s0 + 0.5 * (v0 + v1) * t_diff
             return BangBangTrajectory1D.check_and_combine_parts(
-                overshooting_parts,
-                BangBangTrajectory1D.generate_shortest(
-                    initial_pos=overshooting_parts[-1].s0 + overshooting_parts[-1].v0 * t_diff,
-                    final_pos=final_pos,
-                    initial_vel=overshooting_parts[-1].v0,
-                    max_vel=max_vel,
-                    max_acc=max_acc))
+                overshooting_parts, BangBangTrajectory1D.generate_shortest(s1, final_pos, v1, max_vel, max_acc))
 
         can_reach, parts, reason = BangBangTrajectory1D.can_reach(initial_pos, final_pos, initial_vel, max_vel, max_acc,
                                                                   target_time)
@@ -164,7 +163,7 @@ class BangBangTrajectory1D:
                 v1 = last_part.v0 + last_part.acc * t_diff
                 s1 = last_part.s0 + 0.5 * (last_part.v0 + v1) * t_diff
                 # assert not math.isclose(last_part.acc, current_part.acc, abs_tol=1e-6)
-                assert t_diff >= 0, "t_diff >= 0"
+                assert t_diff >= 0, "{} < 0".format(t_diff)
                 assert math.isclose(v1, current_part.v0, abs_tol=1e-6), "{} != {}".format(v1, current_part.v0)
                 assert math.isclose(s1, current_part.s0, abs_tol=1e-6), "{} != {}".format(s1, current_part.s0)
             combined.append(current_part)
@@ -272,7 +271,7 @@ class BangBangTrajectory1D:
         a = max_acc if v0 * target_time < s else - max_acc
 
         t2 = math.sqrt(a * (a * t ** 2 - 2 * s + 2 * t * v0)) / max_acc
-        t1 = t - t2
+        t1 = 0.0 if math.isclose(t - t2, 0.0, abs_tol=1e-6) else t - t2
 
         if len(parts) == 1:
             parts.append(BBTrajectoryPart())
