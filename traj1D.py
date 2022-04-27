@@ -163,7 +163,7 @@ class BangBangTrajectory1D:
                 v1 = last_part.v0 + last_part.acc * t_diff
                 s1 = last_part.s0 + 0.5 * (last_part.v0 + v1) * t_diff
                 # assert not math.isclose(last_part.acc, current_part.acc, abs_tol=1e-6)
-                assert t_diff >= 0, "{} < 0".format(t_diff)
+                assert math.isclose(t_diff, 0, abs_tol=1e-6) or t_diff > 0, "{} < 0".format(t_diff)
                 assert math.isclose(v1, current_part.v0, abs_tol=1e-6), "{} != {}".format(v1, current_part.v0)
                 assert math.isclose(s1, current_part.s0, abs_tol=1e-6), "{} != {}".format(s1, current_part.s0)
             combined.append(current_part)
@@ -291,6 +291,13 @@ class BangBangTrajectory1D:
             -> List[BBTrajectoryPart]:
 
         distance = final_pos - initial_pos
+        if math.isclose(distance, 0.0, abs_tol=1e-6):
+            part = BBTrajectoryPart
+            part.s0 = initial_pos
+            part.v0 = initial_vel
+            part.acc = 0.0
+            part.t_end = 0.0
+            return [part]
         a_acc = math.copysign(max_acc, distance)
         v1 = math.copysign(max_vel, distance)
         t_acc = (v1 - initial_vel) / a_acc
@@ -309,6 +316,7 @@ class BangBangTrajectory1D:
             parts[1].t_end = parts[0].t_end + math.fabs(math.fabs(s_offset_acc) - math.fabs(distance)) / math.fabs(v1)
             assert parts[0].t_end >= 0
             assert parts[1].t_end >= 0
+            assert parts[1].t_end >= parts[0].t_end
             return parts
 
         sqrt = math.sqrt(2 * a_acc * distance + initial_vel ** 2)
@@ -322,7 +330,7 @@ class BangBangTrajectory1D:
         part.v0 = initial_vel
         part.acc = a_acc
         part.t_end = t
-        assert part.t_end >= 0, "{} >= 0".format(t)
+        assert part.t_end >= 0, "{} < 0".format(t)
         return [part]
 
     @staticmethod
@@ -367,7 +375,8 @@ class BangBangTrajectory1D:
 
         parts[0].s0 = initial_pos
         parts[0].v0 = initial_vel
-        assert parts[0].acc == a_dec
+        assert math.isclose(parts[0].acc, 0.0, abs_tol=1e-6) or math.isclose(parts[0].acc, a_dec, abs_tol=1e-6), \
+            "{} != {}".format(parts[0].acc, a_dec)
         for part in parts:
             part.t_end += t_dec
 
