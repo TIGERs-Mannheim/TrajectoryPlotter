@@ -69,6 +69,7 @@ class BangBangTrajectory1D(Trajectory):
 
     def generate(self, initial_pos: float, final_pos: float, initial_vel: float, max_vel: float, max_acc: float,
                  target_time=None):
+        self.parts = []
         if target_time is None or target_time < 0:
             self.check_and_append_parts(
                 BangBangTrajectory1D.generate_shortest(initial_pos, final_pos, initial_vel, max_vel, max_acc),
@@ -77,6 +78,7 @@ class BangBangTrajectory1D(Trajectory):
         else:
             self.check_and_append_parts(
                 BangBangTrajectory1D.generate_timed(initial_pos, final_pos, initial_vel, max_vel, max_acc, target_time))
+        return self
 
     def check_and_append_parts(self, parts: List[BBTrajectoryPart], no_fail=False):
         self.parts = BangBangTrajectory1D.check_and_combine_parts(self.parts, parts, no_fail)
@@ -309,10 +311,20 @@ class BangBangTrajectory1D(Trajectory):
             part.acc = 0.0
             part.t_end = 0.0
             return [part]
-        a_acc = math.copysign(max_acc, distance)
+
+        if distance >= 0:
+            if initial_vel > max_vel:
+                a_acc = -max_acc
+            else:
+                a_acc = max_acc
+        else:
+            if initial_vel < -max_vel:
+                a_acc = max_acc
+            else:
+                a_acc = -max_acc
         v1 = math.copysign(max_vel, distance)
         t_acc = (v1 - initial_vel) / a_acc
-        assert t_acc >= 0
+        assert t_acc >= 0, "{}".format(t_acc)
         s_offset_acc = 0.5 * (v1 + initial_vel) * t_acc
         if math.fabs(s_offset_acc) < math.fabs(distance):
             # Got enough space to fully accelerate

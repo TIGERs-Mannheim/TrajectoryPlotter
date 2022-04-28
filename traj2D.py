@@ -22,12 +22,12 @@ class BangBangTrajectory2D(Trajectory):
     x: BangBangTrajectory1D
     y: BangBangTrajectory1D
 
-    def __int__(self, accuracy: float = None):
+    def __init__(self):
         self.x = BangBangTrajectory1D()
         self.y = BangBangTrajectory1D()
 
     def generate(self, initial_pos: Vec2, final_pos: Vec2, initial_vel: Vec2, max_vel: float, max_acc: float,
-                 accuracy: float, target_time: float = None):
+                 accuracy: float, target_time: float):
         if target_time is None or target_time < 0:
             self.generate_shortest(initial_pos, final_pos, initial_vel, max_vel, max_acc, accuracy)
         else:
@@ -58,10 +58,8 @@ class BangBangTrajectory2D(Trajectory):
                 break
 
             if self.x.get_total_time() > self.y.get_total_time():
-
                 alpha -= inc
             else:
-
                 alpha += inc
 
             inc *= 0.5
@@ -80,7 +78,7 @@ class BangBangTrajectory2D(Trajectory):
         return max_vel_x, max_vel_y, max_acc_x, max_acc_y
 
     def generate_timed(self, initial_pos: Vec2, final_pos: Vec2, initial_vel: Vec2, max_vel: float, max_acc: float,
-                       accuracy: float, target_time: float = None):
+                       accuracy: float, target_time: float):
         s0x = initial_pos.x
         s0y = initial_pos.y
         s1x = final_pos.x
@@ -99,18 +97,39 @@ class BangBangTrajectory2D(Trajectory):
             _, _, _, time_remaining_y = BangBangTrajectory1D.can_reach(s0y, s1y, v0y, max_vel_y, max_acc_y, target_time)
 
             diff = math.fabs(time_remaining_x - time_remaining_y)
+            # print("{:.6f} - {:.6f}   |   {}".format(time_remaining_x, time_remaining_y, diff))
             if diff < accuracy:
                 break
 
             if time_remaining_x < time_remaining_y:
-
                 alpha -= inc
             else:
-
                 alpha += inc
 
             inc *= 0.5
-
+        print(alpha)
         max_vel_x, max_vel_y, max_acc_x, max_acc_y = self.split_vel_and_acc(alpha, max_vel, max_acc)
         self.x.generate(s0x, s1x, v0x, max_vel_x, max_acc_x, target_time)
         self.y.generate(s0y, s1y, v0y, max_vel_y, max_acc_y, target_time)
+
+    @staticmethod
+    def diff_for_alpha(alpha: float, initial_pos: Vec2, final_pos: Vec2, initial_vel: Vec2, max_vel: float,
+                       max_acc: float, target_time: float = None):
+        s0x = initial_pos.x
+        s0y = initial_pos.y
+        s1x = final_pos.x
+        s1y = final_pos.y
+        v0x = initial_vel.x
+        v0y = initial_vel.y
+
+        max_vel_x, max_vel_y, max_acc_x, max_acc_y = BangBangTrajectory2D.split_vel_and_acc(alpha, max_vel, max_acc)
+
+        if target_time is None or target_time <= 0:
+            x_total = BangBangTrajectory1D().generate(s0x, s1x, v0x, max_vel_x, max_acc_x, None).get_total_time()
+            y_total = BangBangTrajectory1D().generate(s0y, s1y, v0y, max_vel_y, max_acc_y, None).get_total_time()
+
+            return math.fabs(x_total - y_total), x_total, y_total
+        else:
+            _, _, _, time_remaining_x = BangBangTrajectory1D.can_reach(s0x, s1x, v0x, max_vel_x, max_acc_x, target_time)
+            _, _, _, time_remaining_y = BangBangTrajectory1D.can_reach(s0y, s1y, v0y, max_vel_y, max_acc_y, target_time)
+            return math.fabs(time_remaining_x - time_remaining_y), -time_remaining_x, -time_remaining_y
