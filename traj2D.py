@@ -6,6 +6,7 @@ from traj1D import BangBangTrajectory1D
 
 
 class BangBangTrajectory2D(Trajectory):
+    alpha:float
 
     def get_position(self, tt: float) -> Vec2:
         return Vec2(self.x.get_position(tt), self.y.get_position(tt))
@@ -47,6 +48,7 @@ class BangBangTrajectory2D(Trajectory):
 
         # binary search, some iterations (fixed)
         while inc > 1e-7:
+            self.alpha = alpha
             sin_alpha = math.sin(alpha)
             cos_alpha = math.cos(alpha)
 
@@ -56,7 +58,6 @@ class BangBangTrajectory2D(Trajectory):
             diff = math.fabs(self.x.get_total_time() - self.y.get_total_time())
             if diff < accuracy:
                 break
-
             if self.x.get_total_time() > self.y.get_total_time():
                 alpha -= inc
             else:
@@ -91,6 +92,7 @@ class BangBangTrajectory2D(Trajectory):
 
         # binary search, some iterations (fixed)
         while inc > 1e-7:
+            self.alpha = alpha
             max_vel_x, max_vel_y, max_acc_x, max_acc_y = self.split_vel_and_acc(alpha, max_vel, max_acc)
 
             _, _, _, time_remaining_x = BangBangTrajectory1D.can_reach(s0x, s1x, v0x, max_vel_x, max_acc_x, target_time)
@@ -107,7 +109,6 @@ class BangBangTrajectory2D(Trajectory):
                 alpha += inc
 
             inc *= 0.5
-        print(alpha)
         max_vel_x, max_vel_y, max_acc_x, max_acc_y = self.split_vel_and_acc(alpha, max_vel, max_acc)
         self.x.generate(s0x, s1x, v0x, max_vel_x, max_acc_x, target_time)
         self.y.generate(s0y, s1y, v0y, max_vel_y, max_acc_y, target_time)

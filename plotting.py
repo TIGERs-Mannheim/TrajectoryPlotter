@@ -93,8 +93,8 @@ class Plotter:
                 self._plot(plot_fallback)
 
     def _traj(self):
-        sim_steps = Simulator(self.max_vel, self.max_acc, num_steps=1, step_size=300) \
-            .simulate(distance=self.distance, initial_vel=self.initial_vel, target_time=self.target_time)
+        sim_steps = Simulator(self.max_vel, self.max_acc, num_steps=1, step_size=300, distance=self.distance,
+                              initial_vel=self.initial_vel, target_time=self.target_time).simulate()
         fig = self._draw_last_sim_steps_from_list(sim_steps[:1])
         fig.suptitle(self.build_title(PlotType.TRAJ, self.distance, self.initial_vel, self.target_time))
         if self.save_fig:
@@ -107,8 +107,8 @@ class Plotter:
             os.mkdir("./tmp")
         image_paths = []
 
-        sim_steps = Simulator(self.max_vel, self.max_acc, num_steps=30, step_size=10) \
-            .simulate(distance=self.distance, initial_vel=self.initial_vel, target_time=self.target_time)
+        sim_steps = Simulator(self.max_vel, self.max_acc, num_steps=30, step_size=10, distance=self.distance,
+                              initial_vel=self.initial_vel, target_time=self.target_time).simulate()
 
         for i, step in enumerate(sim_steps):
             fig = self._draw_last_sim_steps_from_list(sim_steps[:i + 1])
@@ -173,7 +173,7 @@ class Plotter:
         diffs_timed = [BangBangTrajectory2D.diff_for_alpha(a, Vec2(0, 0), self.distance, self.initial_vel, self.max_vel,
                                                            self.max_acc, self.target_time) for a in alphas]
 
-        axs.set_ylim([-5,5])
+        axs.set_ylim([-5, 5])
         axs.plot(alphas, diffs_timed, label=("diff", "x", "y"))
         axs.legend()
         if self.save_fig:

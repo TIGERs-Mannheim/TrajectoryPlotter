@@ -211,6 +211,13 @@ class BangBangTrajectory1D(Trajectory):
     @staticmethod
     def can_reach(initial_pos: float, final_pos: float, initial_vel: float, max_vel: float, max_acc: float,
                   target_time: float) -> Tuple[bool, List[BBTrajectoryPart], str, float]:
+        if math.isclose(final_pos - initial_pos, 0.0, abs_tol=1e-4) and math.isclose(initial_vel, 0.0, abs_tol=1e-4):
+            part = BBTrajectoryPart()
+            part.t_end = 0
+            part.acc = 0
+            part.v0 = 0
+            part.s0 = initial_pos
+            return True, [part], "fastest-direct", target_time
         fastest_direct = BangBangTrajectory1D.calc_fastest_direct(initial_pos, final_pos, initial_vel, max_vel, max_acc)
         time_remaining = target_time - fastest_direct[-1].t_end
         if time_remaining + ACCURACY < 0:
@@ -353,7 +360,7 @@ class BangBangTrajectory1D(Trajectory):
         part.v0 = initial_vel
         part.acc = a_acc
         part.t_end = t
-        assert part.t_end >= 0, "{} < 0".format(t)
+        # assert part.t_end >= 0, "{} < 0".format(t)
         return [part]
 
     @staticmethod

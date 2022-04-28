@@ -1,4 +1,5 @@
 import dataclasses
+import math
 from typing import List, Tuple, Union, Optional
 
 import numpy as np
@@ -47,6 +48,8 @@ class SimStep2d(SimStep):
     pos: List[Vec2]
     vel: List[Vec2]
     acc: List[Vec2]
+    alpha: float
+    optimal_alpha: float
 
     def get_1d_x(self) -> SimStep1d:
         return self._get_1d("x")
@@ -73,11 +76,13 @@ class Simulator:
     max_acc: float
     num_steps: int
     step_size: int
+    distance: Union[float, Vec2]
+    initial_vel: Union[float, Vec2]
+    target_time: float = None
 
-    def simulate(self, distance: Union[float, Vec2], initial_vel: Union[float, Vec2], target_time: float = None) \
-            -> List[SimStep]:
+    def simulate(self) -> List[SimStep]:
 
-        assert type(distance) == type(initial_vel)
+        assert type(self.distance) == type(self.initial_vel)
 
         def traj(new_distance: Union[float, Vec2], new_initial_vel: Union[float, Vec2], new_target_time: float) \
                 -> Trajectory:
@@ -109,22 +114,34 @@ class Simulator:
                     pos=[pos_offset + trajectory.get_position(t - step_times[0]) for t in step_times],
                     vel=[trajectory.get_velocity(t - step_times[0]) for t in step_times],
                     acc=[trajectory.get_acceleration(t - step_times[0]) for t in step_times],
+                    alpha=trajectory.alpha,
+                    optimal_alpha=Simulator.optimal_alpha(trajectory, self.max_vel, self.max_acc, self.target_time)
                 )
             else:
                 raise ValueError
 
         num_points = self.num_steps * self.step_size
-        total_traj = traj(distance, initial_vel, target_time)
+        total_traj = traj(self.distance, self.initial_vel, self.target_time)
         total_times = np.linspace(0, total_traj.get_total_time(), num_points)
         sim_steps: List[SimStep] = [build_sim_step(0, total_times, total_traj, pos_offset=0)]
 
         for step in range(1, self.num_steps + 1):
             s0 = sim_steps[-1].pos[min(self.step_size, len(sim_steps[-1].pos) - 1)]
             v0 = sim_steps[-1].vel[min(self.step_size, len(sim_steps[-1].vel) - 1)]
-            tt = target_time - sim_steps[-1].times[
-                min(self.step_size, len(sim_steps[-1].times) - 1)] if target_time is not None else None
+            tt = self.target_time - sim_steps[-1].times[
+                min(self.step_size, len(sim_steps[-1].times) - 1)] if self.target_time is not None else None
 
             times = sim_steps[-1].times[min(self.step_size, len(sim_steps[-1].times) - 1):].copy()
-            next_traj = traj(distance - s0, v0, tt)
+            next_traj = traj(self.distance - s0, v0, tt)
             sim_steps.append(build_sim_step(step, times, next_traj, s0))
         return sim_steps
+
+    @staticmethod
+    def optimal_alpha(trajectory: BangBangTrajectory2D, max_vel, max_acc, target_time) -> float:
+        initial_pos = trajectory.get_position(0.0)
+        final_pos = trajectory.get_position(float("inf"))
+        initial_vel = trajectory.get_velocity(0.0)
+        alphas = np.linspace(1e-4, math.pi / 2.0 - 1e-4, num=200)
+        t_diffs = [BangBangTrajectory2D.diff_for_alpha(a, initial_pos, final_pos, initial_vel, max_vel,
+                                                       max_acc, target_time)[0] for a in alphas]
+        return alphas[np.argmin(t_diffs)]
