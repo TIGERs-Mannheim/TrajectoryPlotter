@@ -1,6 +1,8 @@
 import math
 from typing import List, Optional, Tuple
 
+from traj import Trajectory
+
 ACCURACY = 0.001
 CONSTANT_SPEED_DURATION = 0.5
 
@@ -12,7 +14,7 @@ class BBTrajectoryPart:
     s0: float = 0.0
 
 
-class BangBangTrajectory1D:
+class BangBangTrajectory1D(Trajectory):
     def __init__(self):
         self.parts: List[BBTrajectoryPart] = []
 

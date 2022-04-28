@@ -1,17 +1,24 @@
-import dataclasses
 import math
 from typing import Tuple
 
+from traj import Trajectory, Vec2
 from traj1D import BangBangTrajectory1D
 
 
-@dataclasses.dataclass
-class Vec2:
-    x: float
-    y: float
+class BangBangTrajectory2D(Trajectory):
 
+    def get_position(self, tt: float) -> Vec2:
+        return Vec2(self.x.get_position(tt), self.y.get_position(tt))
 
-class BangBangTrajectory2D:
+    def get_velocity(self, tt: float) -> Vec2:
+        return Vec2(self.x.get_velocity(tt), self.y.get_velocity(tt))
+
+    def get_acceleration(self, tt: float) -> Vec2:
+        return Vec2(self.x.get_acceleration(tt), self.y.get_acceleration(tt))
+
+    def get_total_time(self) -> float:
+        return max(self.x.get_total_time(), self.y.get_total_time())
+
     x: BangBangTrajectory1D
     y: BangBangTrajectory1D
 
