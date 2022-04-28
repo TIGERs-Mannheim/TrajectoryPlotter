@@ -69,13 +69,15 @@ class BangBangTrajectory1D:
                  target_time=None):
         if target_time is None or target_time < 0:
             self.check_and_append_parts(
-                BangBangTrajectory1D.generate_shortest(initial_pos, final_pos, initial_vel, max_vel, max_acc))
+                BangBangTrajectory1D.generate_shortest(initial_pos, final_pos, initial_vel, max_vel, max_acc),
+                no_fail=True
+            )
         else:
             self.check_and_append_parts(
                 BangBangTrajectory1D.generate_timed(initial_pos, final_pos, initial_vel, max_vel, max_acc, target_time))
 
-    def check_and_append_parts(self, parts: List[BBTrajectoryPart]):
-        self.parts = BangBangTrajectory1D.check_and_combine_parts(self.parts, parts)
+    def check_and_append_parts(self, parts: List[BBTrajectoryPart], no_fail=False):
+        self.parts = BangBangTrajectory1D.check_and_combine_parts(self.parts, parts, no_fail)
 
     @staticmethod
     def generate_shortest(initial_pos: float, final_pos: float, initial_vel: float, max_vel: float,
@@ -136,7 +138,7 @@ class BangBangTrajectory1D:
             return finish_up(parts)
 
     @staticmethod
-    def check_and_combine_parts(original: List[BBTrajectoryPart], parts: List[BBTrajectoryPart]) \
+    def check_and_combine_parts(original: List[BBTrajectoryPart], parts: List[BBTrajectoryPart], no_fail=False) \
             -> List[BBTrajectoryPart]:
         combined = list(original)
         if len(original) > 1:
@@ -162,10 +164,13 @@ class BangBangTrajectory1D:
                 t_diff = last_part.t_end - last_last_t_end
                 v1 = last_part.v0 + last_part.acc * t_diff
                 s1 = last_part.s0 + 0.5 * (last_part.v0 + v1) * t_diff
-                # assert not math.isclose(last_part.acc, current_part.acc, abs_tol=1e-6)
-                assert math.isclose(t_diff, 0, abs_tol=1e-6) or t_diff > 0, "{} < 0".format(t_diff)
-                assert math.isclose(v1, current_part.v0, abs_tol=1e-6), "{} != {}".format(v1, current_part.v0)
-                assert math.isclose(s1, current_part.s0, abs_tol=1e-6), "{} != {}".format(s1, current_part.s0)
+                # assert no_fail or not math.isclose(last_part.acc, current_part.acc, abs_tol=1e-6)
+                assert no_fail or math.isclose(t_diff, 0, abs_tol=1e-6) or t_diff > 0, \
+                    "{} < 0".format(t_diff)
+                assert no_fail or math.isclose(v1, current_part.v0, abs_tol=1e-6), \
+                    "{} != {}".format(v1, current_part.v0)
+                assert no_fail or math.isclose(s1, current_part.s0, abs_tol=1e-6), \
+                    "{} != {}".format(s1, current_part.s0)
             combined.append(current_part)
             last_last_t_end = last_part.t_end if last_part is not None else 0.0
             last_part = current_part
@@ -230,7 +235,7 @@ class BangBangTrajectory1D:
             a = math.copysign(max_acc, -v0)
             t = target_time - parts[-1].t_end
 
-            sqrt = math.sqrt(a * ((a * (t3 ** 2)) - (2 * t * v0)))
+            sqrt = BangBangTrajectory1D.sqrt(a * ((a * (t3 ** 2)) - (2 * t * v0)))
             t2_plus_t3 = sqrt / max_acc
 
             t1 = t2_plus_t3 - t
@@ -270,7 +275,7 @@ class BangBangTrajectory1D:
 
         a = max_acc if v0 * target_time < s else - max_acc
 
-        t2 = math.sqrt(a * (a * t ** 2 - 2 * s + 2 * t * v0)) / max_acc
+        t2 = BangBangTrajectory1D.sqrt(a * (a * t ** 2 - 2 * s + 2 * t * v0)) / max_acc
         t1 = 0.0 if math.isclose(t - t2, 0.0, abs_tol=1e-6) else t - t2
 
         if len(parts) == 1:
@@ -292,7 +297,7 @@ class BangBangTrajectory1D:
 
         distance = final_pos - initial_pos
         if math.isclose(distance, 0.0, abs_tol=1e-6):
-            part = BBTrajectoryPart
+            part = BBTrajectoryPart()
             part.s0 = initial_pos
             part.v0 = initial_vel
             part.acc = 0.0
@@ -319,7 +324,7 @@ class BangBangTrajectory1D:
             assert parts[1].t_end >= parts[0].t_end
             return parts
 
-        sqrt = math.sqrt(2 * a_acc * distance + initial_vel ** 2)
+        sqrt = BangBangTrajectory1D.sqrt(2 * a_acc * distance + initial_vel ** 2)
         t1 = -(sqrt + initial_vel) / a_acc
         t2 = (sqrt - initial_vel) / a_acc
 
@@ -339,7 +344,7 @@ class BangBangTrajectory1D:
         distance = final_pos - initial_pos
 
         # Detect configurations where overshoot is impossible, so the slowest direct is always as slow as we need
-        if math.isclose(initial_vel, 0, abs_tol=1):
+        if math.isclose(initial_vel, 0, abs_tol=1e-6):
             return None
         if (distance >= 0) != (initial_vel >= 0):
             #    Init     Final
@@ -360,7 +365,8 @@ class BangBangTrajectory1D:
         part.s0 = initial_pos
         part.v0 = initial_vel
         part.acc = a_dec
-        part.t_end = (math.fabs(initial_vel) - math.sqrt(2 * a_dec * distance + initial_vel ** 2)) / max_acc
+        part.t_end = (math.fabs(initial_vel) - BangBangTrajectory1D.sqrt(
+            2 * a_dec * distance + initial_vel ** 2)) / max_acc
         return [part]
 
     @staticmethod
@@ -398,7 +404,7 @@ class BangBangTrajectory1D:
             sq = ((-a * (s0 - s2)) + (0.5 * v0 * v0)) / (a * a)
 
         if sq > 0.0:
-            t2 = math.sqrt(sq)
+            t2 = BangBangTrajectory1D.sqrt(sq)
         else:
             t2 = 0
 
@@ -460,3 +466,12 @@ class BangBangTrajectory1D:
         parts[2].v0 = v2
         parts[2].s0 = s2
         return parts
+
+    @staticmethod
+    def sqrt(value: float) -> float:
+        if math.isclose(value, 0.0, abs_tol=1e-6):
+            return 0.0
+        elif value < 0:
+            raise ValueError("math domain error ({})".format(value))
+        else:
+            return math.sqrt(value)
