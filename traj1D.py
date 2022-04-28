@@ -1,5 +1,5 @@
 import math
-from typing import List, Optional
+from typing import List, Optional, Tuple
 
 ACCURACY = 0.001
 CONSTANT_SPEED_DURATION = 0.5
@@ -125,8 +125,8 @@ class BangBangTrajectory1D:
             return BangBangTrajectory1D.check_and_combine_parts(
                 overshooting_parts, BangBangTrajectory1D.generate_shortest(s1, final_pos, v1, max_vel, max_acc))
 
-        can_reach, parts, reason = BangBangTrajectory1D.can_reach(initial_pos, final_pos, initial_vel, max_vel, max_acc,
-                                                                  target_time)
+        can_reach, parts, reason, time_diff = BangBangTrajectory1D.can_reach(initial_pos, final_pos, initial_vel,
+                                                                             max_vel, max_acc, target_time)
 
         if not can_reach:
             return finish_up(parts)
@@ -206,23 +206,27 @@ class BangBangTrajectory1D:
 
     @staticmethod
     def can_reach(initial_pos: float, final_pos: float, initial_vel: float, max_vel: float, max_acc: float,
-                  target_time: float) -> (bool, List[BBTrajectoryPart], str):
+                  target_time: float) -> Tuple[bool, List[BBTrajectoryPart], str, float]:
         fastest_direct = BangBangTrajectory1D.calc_fastest_direct(initial_pos, final_pos, initial_vel, max_vel, max_acc)
-        if fastest_direct[-1].t_end > target_time:
-            return False, fastest_direct, "too-slow"
+        time_remaining = target_time - fastest_direct[-1].t_end
+        if time_remaining + ACCURACY < 0:
+            return False, fastest_direct, "too-slow", time_remaining
         slowest_direct = BangBangTrajectory1D.calc_slowest_direct(initial_pos, final_pos, initial_vel, max_acc)
         if slowest_direct is not None:
             if target_time - ACCURACY < slowest_direct[-1].t_end:
-                return True, fastest_direct, "direct-slow"
+                # We can break in time and do not overshoot
+                return True, fastest_direct, "direct-slow", time_remaining
             fastest_overshot = BangBangTrajectory1D.calc_fastest_overshot(initial_pos, final_pos, initial_vel, max_vel,
                                                                           max_acc)
-
-            if fastest_overshot[-1].t_end < target_time + ACCURACY:
-                return True, fastest_overshot, "overshot"
+            # We are too fast and overshoot, determine if we can recover in time
+            time_remaining = target_time - fastest_overshot[-1].t_end
+            if time_remaining + ACCURACY < 0:
+                return False, fastest_overshot, "too-fast", time_remaining
             else:
-                return False, fastest_overshot, "too-fast"
+                return True, fastest_overshot, "overshot", time_remaining
 
-        return True, fastest_direct, "direct-fast"
+        else:
+            return True, fastest_direct, "direct-fast", time_remaining
 
     @staticmethod
     def slow_down_fastest(parts: List[BBTrajectoryPart], initial_pos: float, final_pos: float, initial_vel: float,
