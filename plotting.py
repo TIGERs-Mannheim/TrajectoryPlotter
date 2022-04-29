@@ -29,8 +29,8 @@ class Plotter:
     distance: Union[float, Vec2]
     initial_vel: Union[float, Vec2]
     target_time: Optional[float]
-    max_acc: float
     max_vel: float
+    max_acc: float
     save_fig: bool
     show_fig: bool
 
@@ -57,14 +57,14 @@ class Plotter:
                     self.max_acc * 1000)
 
     @staticmethod
-    def plot(distance: Union[float, Vec2], initial_vel: Union[float, Vec2], target_time: Optional[float],
-             max_acc: float, max_vel: float, plot_type: PlotType, plot_fallback: PlotType = PlotType.NONE,
-             show_fig: bool = True, save_fig: bool = False):
-        Plotter(distance=distance,
-                initial_vel=initial_vel,
+    def plot(distance: Union[float, Vec2, Tuple[float, float]], initial_vel: Union[float, Vec2, Tuple[float, float]],
+             target_time: Optional[float], max_vel: float, max_acc: float, plot_type: PlotType,
+             plot_fallback: PlotType = PlotType.NONE, show_fig: bool = True, save_fig: bool = False):
+        Plotter(distance=Vec2(*distance) if isinstance(distance, tuple) else distance,
+                initial_vel=Vec2(*initial_vel) if isinstance(initial_vel, tuple) else initial_vel,
                 target_time=target_time,
-                max_acc=max_acc,
                 max_vel=max_vel,
+                max_acc=max_acc,
                 save_fig=save_fig,
                 show_fig=show_fig) \
             ._plot(plot_type=plot_type, plot_fallback=plot_fallback)
@@ -89,8 +89,11 @@ class Plotter:
             print("{}, {}, {}, {} failed with:"
                   .format(self.distance, self.initial_vel, self.target_time, plot_type.name))
             print(e)
+            raise AssertionError
             if plot_fallback is not None:
                 self._plot(plot_fallback)
+            else:
+                raise AssertionError
 
     def _traj(self):
         sim_steps = Simulator(self.max_vel, self.max_acc, num_steps=1, step_size=300, distance=self.distance,
@@ -115,6 +118,8 @@ class Plotter:
             title = self.build_title(PlotType.SIM_TRAJ, distance=self.distance - step.current_pos(),
                                      initial_vel=step.current_vel(), target_time=self.target_time - step.current_time())
             title += " | {}".format(i)
+            # print("{}: ({}), ({}), {}".format(i, self.distance - sim_steps[i].current_pos(),
+            # sim_steps[i].current_vel(), self.target_time - sim_steps[i].current_time()))
             img_path = os.path.abspath("./tmp/{}.png".format(i))
             fig.suptitle(title, fontsize=20)
             fig.savefig(img_path)
@@ -137,7 +142,7 @@ class Plotter:
         if part is None:
             self._traj()
         data = self._get_data_from_parts(part)
-        assert math.isclose(data[-1][-1], self.distance, abs_tol=1e-6)
+        assert math.isclose(data[1][-1], self.distance, abs_tol=1e-6), "{} != {}".format(data[1][-1], self.distance)
         self._plot_data_(*data, plot_type=PlotType.SLOWEST_DIRECT)
 
     def _fastest_direct(self):
@@ -145,7 +150,7 @@ class Plotter:
             raise NotImplementedError
         parts = BangBangTrajectory1D.calc_fastest_direct(0, self.distance, self.initial_vel, self.max_vel, self.max_acc)
         data = self._get_data_from_parts(parts)
-        assert math.isclose(data[-1][-1], self.distance, abs_tol=1e-6)
+        assert math.isclose(data[1][-1], self.distance, abs_tol=1e-6), "{} != {}".format(data[1][-1], self.distance)
         self._plot_data_(*data, plot_type=PlotType.FASTEST_DIRECT)
 
     def _fastest_overshot(self):
@@ -158,7 +163,7 @@ class Plotter:
         parts = BangBangTrajectory1D.calc_fastest_overshot(0, self.distance, self.initial_vel, self.max_vel,
                                                            self.max_acc)
         data = self._get_data_from_parts(parts)
-        assert math.isclose(data[-1][-1], self.distance, abs_tol=1e-6)
+        assert math.isclose(data[1][-1], self.distance, abs_tol=1e-6), "{} != {}".format(data[1][-1], self.distance)
         self._plot_data_(*data, plot_type=PlotType.FASTEST_OVERSHOT)
 
     def _diff_alpha(self):
@@ -166,16 +171,11 @@ class Plotter:
             raise NotImplementedError
 
         fig = plt.figure(figsize=(10, 5))
-        axs = fig.add_subplot(111)
+        ax = fig.add_subplot(111)
         fig.suptitle(self.build_title(PlotType.DIFF_ALPHA, self.distance, self.initial_vel, self.target_time))
-
-        alphas = np.linspace(1e-4, math.pi * 0.5 - 1e-4, num=500)
-        diffs_timed = [BangBangTrajectory2D.diff_for_alpha(a, Vec2(0, 0), self.distance, self.initial_vel, self.max_vel,
-                                                           self.max_acc, self.target_time) for a in alphas]
-
-        axs.set_ylim([-5, 5])
-        axs.plot(alphas, diffs_timed, label=("diff", "x", "y"))
-        axs.legend()
+        self._fill_alpha(ax, self.distance, self.initial_vel, self.max_vel, self.max_acc, self.target_time)
+        ax.legend()
+        ax.set_ylim([-5, 5])
         if self.save_fig:
             fig.savefig(self.build_file_name(PlotType.DIFF_ALPHA))
         if not self.show_fig:
@@ -226,6 +226,8 @@ class Plotter:
         ax_v.set_ylim([-self.max_vel - 0.25, self.max_vel + 0.25])
         ax_v.set_ylabel("Velocity [m/s]")
         ax_v.set_xlabel("time [s]")
+        ax_v.plot([0, sim_steps[-1].times[-1]], [sim_steps[-1].max_vel, sim_steps[-1].max_vel], color="black")
+        ax_v.plot([0, sim_steps[-1].times[-1]], [-sim_steps[-1].max_vel, -sim_steps[-1].max_vel], color="black")
         ax_v.plot(sim_steps[0].times, sim_steps[0].vel, color="gray")
         ax_v.scatter(times_passed, vel_passed, color="blue")
         ax_v.plot(times_passed, vel_passed, color="blue")
@@ -235,6 +237,8 @@ class Plotter:
         ax_a.set_ylim([-self.max_acc - 0.25, self.max_acc + 0.25])
         ax_a.set_ylabel("Acceleration [m/s²]")
         ax_a.set_xlabel("time [s]")
+        ax_a.plot([0, sim_steps[-1].times[-1]], [sim_steps[-1].max_acc, sim_steps[-1].max_acc], color="black")
+        ax_a.plot([0, sim_steps[-1].times[-1]], [-sim_steps[-1].max_acc, -sim_steps[-1].max_acc], color="black")
         ax_a.plot(sim_steps[0].times, sim_steps[0].acc, color="gray")
         ax_a.scatter(times_passed, acc_passed, color="blue")
         ax_a.plot(times_passed, acc_passed, color="blue")
@@ -246,7 +250,7 @@ class Plotter:
             ax_v.plot([self.target_time, self.target_time], [-self.max_vel - 0.25, self.max_vel + 0.25], color="gray")
             ax_a.plot([self.target_time, self.target_time], [-self.max_acc - 0.25, self.max_acc + 0.25], color="gray")
 
-    def _fill_dynamic_2d(self, ax_3d, sim_steps: List[SimStep2d]):
+    def _fill_dynamic_2d(self, ax_3d, ax_alpha, sim_steps: List[SimStep2d]):
         passed_times = [sim_step.current_time() for sim_step in sim_steps]
         passed_x = [sim_step.current_pos().x for sim_step in sim_steps]
         passed_y = [sim_step.current_pos().y for sim_step in sim_steps]
@@ -266,8 +270,31 @@ class Plotter:
         ax_3d.plot(future_x, future_y, sim_steps[-1].times, color="green")
         ax_3d.grid(True)
 
+        ax_alpha.set_xlabel("Alpha [rad]")
+        ax_alpha.set_ylabel("time [s]")
+        ax_alpha.set_ylim([-5, 5])
+        ax_alpha.plot([sim_steps[-1].alpha, sim_steps[-1].alpha], [-5, 5], color="red", label="chosen")
+        ax_alpha.plot([sim_steps[-1].optimal_alpha, sim_steps[-1].optimal_alpha], [-5, 5], color="green",
+                      label="optimal")
+
+        self._fill_alpha(ax_alpha, sim_steps[-1].pos[-1] - sim_steps[-1].current_pos(), sim_steps[-1].current_vel(),
+                         self.max_vel, self.max_acc,
+                         self.target_time - sim_steps[-1].current_time() if self.target_time is not None else None)
+        ax_alpha.legend()
+        ax_alpha.plot()
+
         if self.target_time is not None:
             ax_3d.scatter(self.distance.x, self.distance.y, self.target_time, color="red", marker="x", s=20 * 6)
+
+    @staticmethod
+    def _fill_alpha(ax_alpha, distance, initial_vel, max_vel, max_acc, target_time):
+
+        alphas = np.linspace(1e-4, math.pi * 0.5 - 1e-4, num=500)
+        diffs_timed = [
+            BangBangTrajectory2D.diff_for_alpha(a, Vec2(0, 0), distance, initial_vel, max_vel, max_acc, target_time) for
+            a in alphas]
+
+        ax_alpha.plot(alphas, diffs_timed, label=("diff", "x", "y"))
 
     def _draw_last_sim_steps_from_list(self, sim_steps: List[SimStep]) -> plt.Figure:
         if isinstance(sim_steps[0], SimStep1d):
@@ -283,8 +310,9 @@ class Plotter:
             sim_steps_y = [step.get_1d_y() for step in sim_steps_2d]
 
             fig = plt.figure(figsize=(20, 15))
-            ax_3d = fig.add_subplot(3, 3, (1, 3), projection="3d")
-            self._fill_dynamic_2d(ax_3d, sim_steps=sim_steps_2d)
+            ax_3d = fig.add_subplot(3, 3, (1, 2), projection="3d")
+            ax_alpha = fig.add_subplot(333)
+            self._fill_dynamic_2d(ax_3d, ax_alpha, sim_steps=sim_steps_2d)
             ax_p = fig.add_subplot(334)
             ax_v = fig.add_subplot(335)
             ax_a = fig.add_subplot(336)

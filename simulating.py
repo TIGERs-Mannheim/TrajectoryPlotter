@@ -16,6 +16,8 @@ class SimStep:
     pos: Union[List[float], List[Vec2]]
     vel: Union[List[float], List[Vec2]]
     acc: Union[List[float], List[Vec2]]
+    max_vel: Union[float, Vec2]
+    max_acc: Union[float, Vec2]
 
     def current_time(self) -> Union[float, Vec2]:
         return self.times[0]
@@ -38,6 +40,8 @@ class SimStep1d(SimStep):
     pos: List[float]
     vel: List[float]
     acc: List[float]
+    max_vel: float
+    max_acc: float
 
     def split(self) -> Tuple[None, None]:
         return None, None
@@ -50,6 +54,8 @@ class SimStep2d(SimStep):
     acc: List[Vec2]
     alpha: float
     optimal_alpha: float
+    max_vel: Vec2
+    max_acc: Vec2
 
     def get_1d_x(self) -> SimStep1d:
         return self._get_1d("x")
@@ -64,6 +70,8 @@ class SimStep2d(SimStep):
             pos=[getattr(i, attr) for i in self.pos],
             vel=[getattr(i, attr) for i in self.vel],
             acc=[getattr(i, attr) for i in self.acc],
+            max_vel=getattr(self.max_vel, attr),
+            max_acc=getattr(self.max_acc, attr),
         )
 
     def split(self) -> Tuple[SimStep1d, SimStep1d]:
@@ -82,10 +90,11 @@ class Simulator:
 
     def simulate(self) -> List[SimStep]:
 
-        assert type(self.distance) == type(self.initial_vel)
+        assert isinstance(self.distance, type(self.initial_vel))
 
         def traj(new_distance: Union[float, Vec2], new_initial_vel: Union[float, Vec2], new_target_time: float) \
                 -> Trajectory:
+            # print("({}), ({}), {}".format(new_distance, new_initial_vel, new_target_time))
             if isinstance(new_distance, (float, int)) and isinstance(new_initial_vel, float):
                 new_traj = BangBangTrajectory1D()
                 new_traj.generate(0, new_distance, new_initial_vel, self.max_vel, self.max_acc, new_target_time)
@@ -106,6 +115,8 @@ class Simulator:
                     pos=[pos_offset + trajectory.get_position(t - step_times[0]) for t in step_times],
                     vel=[trajectory.get_velocity(t - step_times[0]) for t in step_times],
                     acc=[trajectory.get_acceleration(t - step_times[0]) for t in step_times],
+                    max_vel=trajectory.max_vel,
+                    max_acc=trajectory.max_acc,
                 )
             elif isinstance(trajectory, BangBangTrajectory2D):
                 return SimStep2d(
@@ -115,7 +126,9 @@ class Simulator:
                     vel=[trajectory.get_velocity(t - step_times[0]) for t in step_times],
                     acc=[trajectory.get_acceleration(t - step_times[0]) for t in step_times],
                     alpha=trajectory.alpha,
-                    optimal_alpha=Simulator.optimal_alpha(trajectory, self.max_vel, self.max_acc, self.target_time)
+                    optimal_alpha=Simulator.optimal_alpha(trajectory, self.max_vel, self.max_acc, self.target_time),
+                    max_vel=Vec2(trajectory.x.max_vel, trajectory.y.max_vel),
+                    max_acc=Vec2(trajectory.x.max_acc, trajectory.y.max_acc),
                 )
             else:
                 raise ValueError
@@ -141,7 +154,7 @@ class Simulator:
         initial_pos = trajectory.get_position(0.0)
         final_pos = trajectory.get_position(float("inf"))
         initial_vel = trajectory.get_velocity(0.0)
-        alphas = np.linspace(1e-4, math.pi / 2.0 - 1e-4, num=200)
+        alphas = np.linspace(1e-4, math.pi / 2.0 - 1e-4, num=1000)
         t_diffs = [BangBangTrajectory2D.diff_for_alpha(a, initial_pos, final_pos, initial_vel, max_vel,
                                                        max_acc, target_time)[0] for a in alphas]
         return alphas[np.argmin(t_diffs)]

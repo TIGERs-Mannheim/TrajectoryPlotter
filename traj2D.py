@@ -6,7 +6,7 @@ from traj1D import BangBangTrajectory1D
 
 
 class BangBangTrajectory2D(Trajectory):
-    alpha:float
+    alpha: float
 
     def get_position(self, tt: float) -> Vec2:
         return Vec2(self.x.get_position(tt), self.y.get_position(tt))
@@ -29,6 +29,8 @@ class BangBangTrajectory2D(Trajectory):
 
     def generate(self, initial_pos: Vec2, final_pos: Vec2, initial_vel: Vec2, max_vel: float, max_acc: float,
                  accuracy: float, target_time: float):
+        self.generate_slow(initial_pos, final_pos, initial_vel, max_vel, max_acc, accuracy, target_time)
+        return
         if target_time is None or target_time < 0:
             self.generate_shortest(initial_pos, final_pos, initial_vel, max_vel, max_acc, accuracy)
         else:
@@ -110,6 +112,42 @@ class BangBangTrajectory2D(Trajectory):
 
             inc *= 0.5
         max_vel_x, max_vel_y, max_acc_x, max_acc_y = self.split_vel_and_acc(alpha, max_vel, max_acc)
+        self.x.generate(s0x, s1x, v0x, max_vel_x, max_acc_x, target_time)
+        self.y.generate(s0y, s1y, v0y, max_vel_y, max_acc_y, target_time)
+
+    def generate_slow(self, initial_pos: Vec2, final_pos: Vec2, initial_vel: Vec2, max_vel: float, max_acc: float,
+                      accuracy: float, target_time: float = None):
+
+        inc: float = math.pi / 8.0
+        self.alpha: float = math.pi / 4.0
+
+        while inc > 1e-7:
+            l_alpha = self.alpha - inc
+            r_alpha = self.alpha + inc
+
+            l_diff, _, _ = self.diff_for_alpha(l_alpha, initial_pos, final_pos, initial_vel, max_vel, max_acc,
+                                               target_time)
+            r_diff, _, _ = self.diff_for_alpha(r_alpha, initial_pos, final_pos, initial_vel, max_vel, max_acc,
+                                               target_time)
+
+            left_is_better = l_diff <= r_diff
+            if left_is_better:
+                self.alpha = l_alpha
+                if l_diff < accuracy:
+                    break
+            else:
+                self.alpha = r_alpha
+                if r_diff < accuracy:
+                    break
+            inc *= 0.5
+
+        s0x = initial_pos.x
+        s0y = initial_pos.y
+        s1x = final_pos.x
+        s1y = final_pos.y
+        v0x = initial_vel.x
+        v0y = initial_vel.y
+        max_vel_x, max_vel_y, max_acc_x, max_acc_y = self.split_vel_and_acc(self.alpha, max_vel, max_acc)
         self.x.generate(s0x, s1x, v0x, max_vel_x, max_acc_x, target_time)
         self.y.generate(s0y, s1y, v0y, max_vel_y, max_acc_y, target_time)
 
