@@ -120,7 +120,7 @@ class Plotter:
         image_paths = []
 
         sim_steps = Simulator(self.max_vel, self.max_acc, num_steps=30, step_size=10, distance=self.distance,
-                              initial_vel=self.initial_vel, target_time=self.target_time).simulate()
+                              initial_vel=self.initial_vel, target_time=self.target_time).simulate_real()
 
         for i, step in enumerate(sim_steps):
             fig = self._draw_last_sim_steps_from_list(sim_steps[:i + 1])
