@@ -11,6 +11,7 @@ from traj2D import BangBangTrajectory2D
 
 @dataclasses.dataclass(frozen=True)
 class SimStep:
+    trajectory: Union[BangBangTrajectory1D, BangBangTrajectory2D]
     step: int
     times: List[float]
     pos: Union[List[float], List[Vec2]]
@@ -37,6 +38,7 @@ class SimStep:
 
 @dataclasses.dataclass(frozen=True)
 class SimStep1d(SimStep):
+    trajectory: BangBangTrajectory1D
     pos: List[float]
     vel: List[float]
     acc: List[float]
@@ -49,6 +51,7 @@ class SimStep1d(SimStep):
 
 @dataclasses.dataclass(frozen=True)
 class SimStep2d(SimStep):
+    trajectory: BangBangTrajectory2D
     pos: List[Vec2]
     vel: List[Vec2]
     acc: List[Vec2]
@@ -65,6 +68,7 @@ class SimStep2d(SimStep):
 
     def _get_1d(self, attr: str) -> SimStep1d:
         return SimStep1d(
+            trajectory=getattr(self.trajectory, attr),
             step=self.step,
             times=self.times,
             pos=[getattr(i, attr) for i in self.pos],
@@ -110,6 +114,7 @@ class Simulator:
                            trajectory: Trajectory, pos_offset: Union[float, Vec2]) -> SimStep:
             if isinstance(trajectory, BangBangTrajectory1D):
                 return SimStep1d(
+                    trajectory=trajectory,
                     step=current_step,
                     times=step_times,
                     pos=[pos_offset + trajectory.get_position(t - step_times[0]) for t in step_times],
@@ -120,6 +125,7 @@ class Simulator:
                 )
             elif isinstance(trajectory, BangBangTrajectory2D):
                 return SimStep2d(
+                    trajectory=trajectory,
                     step=current_step,
                     times=step_times,
                     pos=[pos_offset + trajectory.get_position(t - step_times[0]) for t in step_times],

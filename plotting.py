@@ -1,6 +1,7 @@
 import dataclasses
 import math
 import os
+import traceback
 from enum import IntEnum
 from typing import List, Optional, Union, Tuple
 
@@ -21,7 +22,8 @@ class PlotType(IntEnum):
     SLOWEST_DIRECT = 3
     FASTEST_DIRECT = 4
     FASTEST_OVERSHOT = 5
-    DIFF_ALPHA = 6
+    CAN_REACH = 6
+    DIFF_ALPHA = 7
 
 
 @dataclasses.dataclass(frozen=True)
@@ -39,13 +41,16 @@ class Plotter:
 
     @staticmethod
     def build_title(plot_type: PlotType, distance: Union[float, Vec2], initial_vel: Union[float, Vec2],
-                    target_time: float) -> str:
+                    target_time: float, custom_headings: List[str] = None) -> str:
+        if custom_headings is None:
+            custom_headings = list()
         distance_str = "{:.3f}".format(distance) if isinstance(distance, float) else str(distance)
         initial_vel_str = "{:.3f}".format(initial_vel) if isinstance(initial_vel, float) else str(initial_vel)
         target_time_str = "{:.3f}".format(target_time) if target_time is not None else "None"
 
         return "{:s} d = {:s} m | v0 = {:s} m/s | tt = {:s} s" \
-            .format(plot_type.name, distance_str, initial_vel_str, target_time_str)
+                   .format(plot_type.name, distance_str, initial_vel_str, target_time_str) \
+               + (" | " + " | ".join(custom_headings) if len(custom_headings) > 0 else "")
 
     def build_file_name(self, plot_type: PlotType) -> str:
         distance = self.distance if isinstance(self.distance, float) else self.distance.length()
@@ -60,38 +65,41 @@ class Plotter:
     def plot(distance: Union[float, Vec2, Tuple[float, float]], initial_vel: Union[float, Vec2, Tuple[float, float]],
              target_time: Optional[float], max_vel: float, max_acc: float, plot_type: PlotType,
              plot_fallback: PlotType = PlotType.NONE, show_fig: bool = True, save_fig: bool = False):
-        Plotter(distance=Vec2(*distance) if isinstance(distance, tuple) else distance,
-                initial_vel=Vec2(*initial_vel) if isinstance(initial_vel, tuple) else initial_vel,
-                target_time=target_time,
-                max_vel=max_vel,
-                max_acc=max_acc,
-                save_fig=save_fig,
-                show_fig=show_fig) \
+        return Plotter(distance=Vec2(*distance) if isinstance(distance, tuple) else distance,
+                       initial_vel=Vec2(*initial_vel) if isinstance(initial_vel, tuple) else initial_vel,
+                       target_time=target_time,
+                       max_vel=max_vel,
+                       max_acc=max_acc,
+                       save_fig=save_fig,
+                       show_fig=show_fig) \
             ._plot(plot_type=plot_type, plot_fallback=plot_fallback)
 
     def _plot(self, plot_type: PlotType, plot_fallback: PlotType = None):
         try:
             match plot_type:
                 case PlotType.TRAJ:
-                    self._traj()
+                    return self._traj()
                 case PlotType.SIM_TRAJ:
-                    self._sim_traj()
+                    return self._sim_traj()
                 case PlotType.SLOWEST_DIRECT:
-                    self._slowest_direct()
+                    return self._slowest_direct()
                 case PlotType.FASTEST_DIRECT:
-                    self._fastest_direct()
+                    return self._fastest_direct()
                 case PlotType.FASTEST_OVERSHOT:
-                    self._fastest_overshot()
+                    return self._fastest_overshot()
+                case PlotType.CAN_REACH:
+                    return self._can_reach()
                 case PlotType.DIFF_ALPHA:
-                    self._diff_alpha()
+                    return self._diff_alpha()
 
         except Exception as e:
             print("{}, {}, {}, {} failed with:"
                   .format(self.distance, self.initial_vel, self.target_time, plot_type.name))
+            print(type(e))
             print(e)
-            raise AssertionError
+            print(traceback.format_exc())
             if plot_fallback is not None:
-                self._plot(plot_fallback)
+                return self._plot(plot_fallback)
             else:
                 raise AssertionError
 
@@ -104,6 +112,7 @@ class Plotter:
             fig.savefig(self.build_file_name(PlotType.TRAJ) + ".png")
         if not self.show_fig:
             plt.close(fig)
+        return sim_steps[0].trajectory
 
     def _sim_traj(self):
         if not os.path.exists("./tmp"):
@@ -165,6 +174,15 @@ class Plotter:
         data = self._get_data_from_parts(parts)
         assert math.isclose(data[1][-1], self.distance, abs_tol=1e-6), "{} != {}".format(data[1][-1], self.distance)
         self._plot_data_(*data, plot_type=PlotType.FASTEST_OVERSHOT)
+
+    def _can_reach(self):
+        if isinstance(self.distance, Vec2):
+            raise NotImplementedError
+        can_reach, parts, reason, time_remaining = BangBangTrajectory1D.can_reach(
+            0, self.distance, self.initial_vel, self.max_vel, self.max_acc, self.target_time)
+        data = self._get_data_from_parts(parts)
+        self._plot_data_(*data, plot_type=PlotType.CAN_REACH,
+                         custom_headings=["can = {}".format(can_reach), reason, "tr = {:.3f}s".format(time_remaining)])
 
     def _diff_alpha(self):
         if isinstance(self.distance, (int, float)):
@@ -290,11 +308,17 @@ class Plotter:
     def _fill_alpha(ax_alpha, distance, initial_vel, max_vel, max_acc, target_time):
 
         alphas = np.linspace(1e-4, math.pi * 0.5 - 1e-4, num=500)
-        diffs_timed = [
+        data = [
             BangBangTrajectory2D.diff_for_alpha(a, Vec2(0, 0), distance, initial_vel, max_vel, max_acc, target_time) for
             a in alphas]
 
-        ax_alpha.plot(alphas, diffs_timed, label=("diff", "x", "y"))
+        diff = [e[0] for e in data]
+        x = [e[1] for e in data]
+        y = [e[2] for e in data]
+
+        ax_alpha.plot(alphas, diff, label="diff", color="orange")
+        ax_alpha.plot(alphas, x, label="x", color="blue")
+        ax_alpha.plot(alphas, y, label="y", color="cyan")
 
     def _draw_last_sim_steps_from_list(self, sim_steps: List[SimStep]) -> plt.Figure:
         if isinstance(sim_steps[0], SimStep1d):
@@ -349,9 +373,9 @@ class Plotter:
             acc = np.append(acc, acc_new) if acc is not None else acc_new
         return times, pos, vel, acc
 
-    def _plot_data_(self, times, pos, vel, acc, plot_type: PlotType):
+    def _plot_data_(self, times, pos, vel, acc, plot_type: PlotType, custom_headings: List[str] = None):
         fig, (ax_p, ax_v, ax_a) = plt.subplots(1, 3, figsize=(20, 5))
-        fig.suptitle(self.build_title(plot_type, self.distance, self.initial_vel, self.target_time))
+        fig.suptitle(self.build_title(plot_type, self.distance, self.initial_vel, self.target_time, custom_headings))
         self._fill_static_1d(ax_p, ax_v, ax_a, times, pos, vel, acc)
         if self.save_fig:
             fig.savefig(self.build_file_name(plot_type))
