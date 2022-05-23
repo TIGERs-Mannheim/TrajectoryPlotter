@@ -83,7 +83,7 @@ class BangBangTrajectory1D(Trajectory):
             )
         else:
             self.check_and_append_parts(
-                BangBangTrajectory1D.generate_timed(initial_pos, final_pos, initial_vel, max_vel, max_acc, target_time),
+                BangBangTrajectory1D.generate_shortest_timed(initial_pos, final_pos, initial_vel, max_vel, max_acc, target_time),
                 no_fail=True
             )
         return self
@@ -120,6 +120,34 @@ class BangBangTrajectory1D(Trajectory):
             else:
                 # Trapezoidal profile
                 return BangBangTrajectory1D.calc_trapz(x0, xd0, -xd_max, x_trg, xdd_max)
+
+    @staticmethod
+    def generate_shortest_timed(initial_pos: float, final_pos: float, initial_vel: float, max_vel: float,
+                                max_acc: float, target_time: float) -> List[BBTrajectoryPart]:
+        def finish_up(overshooting_parts: List[BBTrajectoryPart]):
+            t_diff = overshooting_parts[-1].t_end - overshooting_parts[-2].t_end \
+                if len(overshooting_parts) > 1 \
+                else overshooting_parts[-1].t_end
+            a = overshooting_parts[-1].acc
+            v0 = overshooting_parts[-1].v0
+            s0 = overshooting_parts[-1].s0
+            v1 = v0 + a * t_diff
+            s1 = s0 + 0.5 * (v0 + v1) * t_diff
+            return BangBangTrajectory1D.check_and_combine_parts(
+                overshooting_parts, BangBangTrajectory1D.generate_shortest(s1, final_pos, v1, max_vel, max_acc))
+
+        can_reach, parts, reason, time_diff = BangBangTrajectory1D.can_reach(initial_pos, final_pos, initial_vel,
+                                                                             max_vel, max_acc, target_time)
+
+        if not can_reach:
+            return finish_up(parts)
+        else:
+            shortest = BangBangTrajectory1D.generate_shortest(initial_pos, final_pos, initial_vel, max_vel, max_acc)
+            if shortest[-1].t_end - ACCURACY < target_time:
+                return shortest
+            BangBangTrajectory1D.slow_down_fastest_simple(parts, initial_pos, final_pos, initial_vel, max_acc,
+                                                          target_time)
+            return finish_up(parts)
 
     @staticmethod
     def generate_timed(initial_pos: float, final_pos: float, initial_vel: float, max_vel: float, max_acc: float,
@@ -319,6 +347,37 @@ class BangBangTrajectory1D(Trajectory):
         parts[1].acc = 0
         parts[1].v0 = v0 + t1 * a
         parts[1].s0 = initial_pos + 0.5 * (v0 + parts[1].v0) * t1
+
+    @staticmethod
+    def slow_down_fastest_simple(parts: List[BBTrajectoryPart], initial_pos: float, final_pos: float,
+                                 initial_vel: float, max_acc: float, target_time: float):
+        time_diff = target_time - parts[-1].t_end
+        if len(parts) == 2:
+            assert math.isclose(parts[-1].acc, 0.0, abs_tol=1e-3)
+            # https://www.wolframalpha.com/input?i=solve+v_0*t_1+%3Dv_0*t_2%2B1%2F2*a*Power%5Bt_2%2C2%5D%2Bv_1*t_3%2C+v_1+%3D+v_0%2Ba*t_2%2C+t_1%2Bt%3Dt_2%2Bt_3+for+v_1%2Ct_1%2C++t_2
+
+            t23 = target_time - parts[0].t_end
+            s = final_pos - parts[1].s0
+            t3 = BangBangTrajectory1D.sqrt(-2 * (s - t23 * parts[1].v0) / parts[0].acc)
+            assert math.isclose(s, t23 * parts[1].v0 - 0.5 * parts[0].acc * t3 ** 2)
+            t2 = t23 - t3
+            if t2 >= 0:
+                parts[1].t_end += t2
+                return
+        # https://www.wolframalpha.com/input?i=solve+s+%3D+v_0+*+t_1+%2B+0.5+*+a+*+t_1+**+2+%2Bv_1*t_2+-+0.5+*+a+*+t_2**2%2C+v_1+%3D+v_0+%2B+a+*+t_1%2C+v_2%3Dv_1-a*t_2%2C+t%3Dt_1%2Bt_2+for+v_2%2Cv_1%2C+t_1%2C+t_2
+        a = parts[0].acc
+        v0 = parts[0].v0
+        s = final_pos - initial_pos
+        t = target_time
+        sqrt = BangBangTrajectory1D.sqrt(2 * a * (a * t ** 2 - 2 * s + 2 * t * v0))
+        t1 = t - sqrt / 2 * max_acc
+
+        assert t1 >= 0.0 or math.isclose(t1, 0)
+
+        a = max_acc if v0 * target_time < s else - max_acc
+
+        parts[0].t_end = t1
+        return
 
     @staticmethod
     def calc_fastest_direct(initial_pos: float, final_pos: float, initial_vel: float, max_vel: float, max_acc: float) \
