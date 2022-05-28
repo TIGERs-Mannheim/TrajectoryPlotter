@@ -375,7 +375,7 @@ class BangBangTrajectory1D(Trajectory):
             if t2 >= 0:
                 assert math.isclose(s, t23 * parts[1].v0 - 0.5 * parts[0].acc * t3 ** 2,
                                     abs_tol=1e3), "Integration failed"
-                parts[1].t_end += t2
+                parts[1].t_end = parts[0].t_end + t2
                 return
         # https://www.wolframalpha.com/input?i=solve+s+%3D+v_0+*+t_1+%2B+0.5+*+a+*+t_1+**+2+%2Bv_1*t_2+-+0.5+*+a+*+t_2**2%2C+v_1+%3D+v_0+%2B+a+*+t_1%2C+v_2%3Dv_1-a*t_2%2C+t%3Dt_1%2Bt_2+for+v_2%2Cv_1%2C+t_1%2C+t_2
         a = parts[0].acc
@@ -455,7 +455,7 @@ class BangBangTrajectory1D(Trajectory):
         part.v0 = initial_vel
         part.acc = a_acc
         part.t_end = t
-        # assert part.t_end >= 0, "{} < 0".format(t)
+        assert part.t_end >= 0, "{} < 0".format(t)
         return [part]
 
     @staticmethod
