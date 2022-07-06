@@ -1,0 +1,1500 @@
+Triangular too slow
+Triangular finishing early
+0,0016705963 2,0330319405 2,0330319405 0,0000000000
+Triangular too slow
+Triangular finishing early
+0,0048117890 2,0330436230 2,0330436230 0,0000000000
+Triangular too slow
+Triangular finishing early
+0,0079529816 2,0330672264 2,0330672264 0,0000000000
+Triangular too slow
+Triangular finishing early
+0,0110941743 2,0331017971 2,0331017971 0,0000000000
+Triangular too slow
+Triangular finishing early
+0,0142353669 2,0331475735 2,0331475735 0,0000000000
+Triangular too slow
+Triangular finishing early
+0,0173765596 2,0332055092 2,0332055092 0,0000000000
+Triangular too slow
+Triangular finishing early
+0,0205177522 2,0332746506 2,0332746506 0,0000000000
+Triangular too slow
+Triangular finishing early
+0,0236589449 2,0333547592 2,0333547592 0,0000000000
+Triangular too slow
+Triangular finishing early
+0,0268001376 2,0334470272 2,0334470272 0,0000000000
+Triangular too slow
+Triangular finishing early
+0,0299413302 2,0335505009 2,0335505009 0,0000000000
+Triangular too slow
+Triangular finishing early
+0,0330825229 2,0336654186 2,0336654186 0,0000000000
+Triangular too slow
+Triangular finishing early
+0,0362237155 2,0337915421 2,0337915421 0,0000000000
+Triangular too slow
+Triangular finishing early
+0,0393649082 2,0339295864 2,0339295864 0,0000000000
+Triangular too slow
+Triangular finishing early
+0,0425061008 2,0340788364 2,0340788364 0,0000000000
+Triangular too slow
+Triangular finishing early
+0,0456472935 2,0342395306 2,0342395306 0,0000000000
+Triangular too slow
+Triangular finishing early
+0,0487884861 2,0344121456 2,0344121456 0,0000000000
+Triangular too slow
+Triangular finishing early
+0,0519296788 2,0345959663 2,0345959663 0,0000000000
+Triangular too slow
+Triangular finishing early
+0,0550708714 2,0347912312 2,0347912312 0,0000000000
+Triangular too slow
+Triangular finishing early
+0,0582120641 2,0349981785 2,0349981785 0,0000000000
+Triangular too slow
+Triangular finishing early
+0,0613532567 2,0352163315 2,0352163315 0,0000000000
+Triangular too slow
+Triangular finishing early
+0,0644944494 2,0354464054 2,0354464054 0,0000000000
+Triangular too slow
+Triangular finishing early
+0,0676356421 2,0356879234 2,0356879234 0,0000000000
+Triangular too slow
+Triangular finishing early
+0,0707768347 2,0359408855 2,0359408855 0,0000000000
+Triangular too slow
+Triangular finishing early
+0,0739180274 2,0362052917 2,0362052917 0,0000000000
+Triangular too slow
+Triangular finishing early
+0,0770592200 2,0364818573 2,0364818573 0,0000000000
+Triangular too slow
+Triangular finishing early
+0,0802004127 2,0367691517 2,0367691517 0,0000000000
+Triangular too slow
+Triangular finishing early
+0,0833416053 2,0370686054 2,0370686054 0,0000000000
+Triangular too slow
+Triangular finishing early
+0,0864827980 2,0373795033 2,0373795033 0,0000000000
+Triangular too slow
+Triangular finishing early
+0,0896239906 2,0377020836 2,0377020836 0,0000000000
+Triangular too slow
+Triangular finishing early
+0,0927651833 2,0380361080 2,0380361080 0,0000000000
+Triangular too slow
+Triangular finishing early
+0,0959063759 2,0383820534 2,0383820534 0,0000000000
+Triangular too slow
+Triangular finishing early
+0,0990475686 2,0387394428 2,0387394428 0,0000000000
+Triangular too slow
+Triangular finishing early
+0,1021887612 2,0391085148 2,0391085148 0,0000000000
+Triangular too slow
+Triangular finishing early
+0,1053299539 2,0394892693 2,0394892693 0,0000000000
+Triangular too slow
+Triangular finishing early
+0,1084711465 2,0398819447 2,0398819447 0,0000000000
+Triangular too slow
+Triangular finishing early
+0,1116123392 2,0402860641 2,0402860641 0,0000000000
+Triangular too slow
+Triangular finishing early
+0,1147535319 2,0407018661 2,0407018661 0,0000000000
+Triangular too slow
+Triangular finishing early
+0,1178947245 2,0411298275 2,0411298275 0,0000000000
+Triangular too slow
+Triangular finishing early
+0,1210359172 2,0415692329 2,0415692329 0,0000000000
+Triangular too slow
+Triangular finishing early
+0,1241771098 2,0420205593 2,0420205593 0,0000000000
+Triangular too slow
+Triangular finishing early
+0,1273183025 2,0424835682 2,0424835682 0,0000000000
+Triangular too slow
+Triangular finishing early
+0,1304594951 2,0429584980 2,0429584980 0,0000000000
+Triangular too slow
+Triangular finishing early
+0,1336006878 2,0434451103 2,0434451103 0,0000000000
+Triangular too slow
+Triangular finishing early
+0,1367418804 2,0439436436 2,0439436436 0,0000000000
+Triangular too slow
+Triangular finishing early
+0,1398830731 2,0444540977 2,0444540977 0,0000000000
+Triangular too slow
+Triangular finishing early
+0,1430242657 2,0449762344 2,0449762344 0,0000000000
+Triangular too slow
+Triangular finishing early
+0,1461654584 2,0455105305 2,0455105305 0,0000000000
+Triangular too slow
+Triangular finishing early
+0,1493066510 2,0460567474 2,0460567474 0,0000000000
+Triangular too slow
+Triangular finishing early
+0,1524478437 2,0466148853 2,0466148853 0,0000000000
+Triangular too slow
+Triangular finishing early
+0,1555890364 2,0471849442 2,0471849442 0,0000000000
+Triangular too slow
+Triangular finishing early
+0,1587302290 2,0477669239 2,0477669239 0,0000000000
+Triangular too slow
+Triangular finishing early
+0,1618714217 2,0483613014 2,0483613014 0,0000000000
+Triangular too slow
+Triangular finishing early
+0,1650126143 2,0489673615 2,0489673615 0,0000000000
+Triangular too slow
+Triangular finishing early
+0,1681538070 2,0495855808 2,0495855808 0,0000000000
+Triangular too slow
+Triangular finishing early
+0,1712949996 2,0502161980 2,0502161980 0,0000000000
+Triangular too slow
+Triangular finishing early
+0,1744361923 2,0508584976 2,0508584976 0,0000000000
+Triangular too slow
+Triangular finishing early
+0,1775773849 2,0515134335 2,0515134335 0,0000000000
+Triangular too slow
+Triangular finishing early
+0,1807185776 2,0521798134 2,0521798134 0,0000000000
+Triangular too slow
+Triangular finishing early
+0,1838597702 2,0528590679 2,0528590679 0,0000000000
+Triangular too slow
+Triangular finishing early
+0,1870009629 2,0535502434 2,0535502434 0,0000000000
+Triangular too slow
+Triangular finishing early
+0,1901421555 2,0542538166 2,0542538166 0,0000000000
+Triangular too slow
+Triangular finishing early
+0,1932833482 2,0549695492 2,0549695492 0,0000000000
+Triangular too slow
+Triangular finishing early
+0,1964245408 2,0556976795 2,0556976795 0,0000000000
+Triangular too slow
+Triangular finishing early
+0,1995657335 2,0564382076 2,0564382076 0,0000000000
+Triangular too slow
+Triangular finishing early
+0,2027069262 2,0571911335 2,0571911335 0,0000000000
+Triangular too slow
+Triangular finishing early
+0,2058481188 2,0579562187 2,0579562187 0,0000000000
+Triangular too slow
+Triangular finishing early
+0,2089893115 2,0587339401 2,0587339401 0,0000000000
+Triangular too slow
+Triangular finishing early
+0,2121305041 2,0595240593 2,0595240593 0,0000000000
+Triangular too slow
+Triangular finishing early
+0,2152716968 2,0603265762 2,0603265762 0,0000000000
+Triangular too slow
+Triangular finishing early
+0,2184128894 2,0611417294 2,0611417294 0,0000000000
+Triangular too slow
+Triangular finishing early
+0,2215540821 2,0619697571 2,0619697571 0,0000000000
+Triangular too slow
+Triangular finishing early
+0,2246952747 2,0628099442 2,0628099442 0,0000000000
+Triangular too slow
+Triangular finishing early
+0,2278364674 2,0636630058 2,0636630058 0,0000000000
+Triangular too slow
+Triangular finishing early
+0,2309776600 2,0645287037 2,0645287037 0,0000000000
+Triangular too slow
+Triangular finishing early
+0,2341188527 2,0654067993 2,0654067993 0,0000000000
+Triangular too slow
+Triangular finishing early
+0,2372600453 2,0662980080 2,0662980080 0,0000000000
+Triangular too slow
+Triangular finishing early
+0,2404012380 2,0672020912 2,0672020912 0,0000000000
+Triangular too slow
+Triangular finishing early
+0,2435424307 2,0681185722 2,0681185722 0,0000000000
+Triangular too slow
+Triangular finishing early
+0,2466836233 2,0690481663 2,0690481663 0,0000000000
+Triangular too slow
+Triangular finishing early
+0,2498248160 2,0699903965 2,0699903965 0,0000000000
+Triangular too slow
+Triangular finishing early
+0,2529660086 2,0709457397 2,0709457397 0,0000000000
+Triangular too slow
+Triangular finishing early
+0,2561072013 2,0719141960 2,0719141960 0,0000000000
+Triangular too slow
+Triangular finishing early
+0,2592483939 2,0728957653 2,0728957653 0,0000000000
+Triangular too slow
+Triangular finishing early
+0,2623895866 2,0738902092 2,0738902092 0,0000000000
+Triangular too slow
+Triangular finishing early
+0,2655307792 2,0748975277 2,0748975277 0,0000000000
+Triangular too slow
+Triangular finishing early
+0,2686719719 2,0759181976 2,0759181976 0,0000000000
+Triangular too slow
+Triangular finishing early
+0,2718131645 2,0769522190 2,0769522190 0,0000000000
+Triangular too slow
+Triangular finishing early
+0,2749543572 2,0779993534 2,0779993534 0,0000000000
+Triangular too slow
+Triangular finishing early
+0,2780955498 2,0790593624 2,0790593624 0,0000000000
+Triangular too slow
+Triangular finishing early
+0,2812367425 2,0801331997 2,0801331997 0,0000000000
+Triangular too slow
+Triangular finishing early
+0,2843779351 2,0812201500 2,0812201500 0,0000000000
+Triangular too slow
+Triangular finishing early
+0,2875191278 2,0823204517 2,0823204517 0,0000000000
+Triangular too slow
+Triangular finishing early
+0,2906603205 2,0834345818 2,0834345818 0,0000000000
+Triangular too slow
+Triangular finishing early
+0,2938015131 2,0845618248 2,0845618248 0,0000000000
+Triangular too slow
+Triangular finishing early
+0,2969427058 2,0857026577 2,0857026577 0,0000000000
+Triangular too slow
+Triangular finishing early
+0,3000838984 2,0868570805 2,0868570805 0,0000000000
+Triangular too slow
+Triangular finishing early
+0,3032250911 2,0880250931 2,0880250931 0,0000000000
+Triangular too slow
+Triangular finishing early
+0,3063662837 2,0892071724 2,0892071724 0,0000000000
+Triangular too slow
+Triangular finishing early
+0,3095074764 2,0904026031 2,0904026031 0,0000000000
+Triangular too slow
+Triangular finishing early
+0,3126486690 2,0916121006 2,0916121006 0,0000000000
+Triangular too slow
+Triangular finishing early
+0,3157898617 2,0928351879 2,0928351879 0,0000000000
+Triangular too slow
+Triangular finishing early
+0,3189310543 2,0940725803 2,0940725803 0,0000000000
+Triangular too slow
+Triangular finishing early
+0,3220722470 2,0953235626 2,0953235626 0,0000000000
+Triangular too slow
+Triangular finishing early
+0,3252134396 2,0965888500 2,0965888500 0,0000000000
+Triangular too slow
+Triangular finishing early
+0,3283546323 2,0978679657 2,0978679657 0,0000000000
+Triangular too slow
+Triangular finishing early
+0,3314958250 2,0991611481 2,0991611481 0,0000000000
+Triangular too slow
+Triangular finishing early
+0,3346370176 2,1004686356 2,1004686356 0,0000000000
+Triangular too slow
+Triangular finishing early
+0,3377782103 2,1017904282 2,1017904282 0,0000000000
+Triangular too slow
+Triangular finishing early
+0,3409194029 2,1031265259 2,1031265259 0,0000000000
+Triangular too slow
+Triangular finishing early
+0,3440605956 2,1044769287 2,1044769287 0,0000000000
+Triangular too slow
+Triangular finishing early
+0,3472017882 2,1058416367 2,1058416367 0,0000000000
+Triangular too slow
+Triangular finishing early
+0,3503429809 2,1072208881 2,1072208881 0,0000000000
+Triangular too slow
+Triangular finishing early
+0,3534841735 2,1086146832 2,1086146832 0,0000000000
+Triangular too slow
+Triangular finishing early
+0,3566253662 2,1100230217 2,1100230217 0,0000000000
+Triangular too slow
+Triangular finishing early
+0,3597665588 2,1114461422 2,1114461422 0,0000000000
+Triangular too slow
+Triangular finishing early
+0,3629077515 2,1128840446 2,1128840446 0,0000000000
+Triangular too slow
+Triangular finishing early
+0,3660489441 2,1143367290 2,1143367290 0,0000000000
+Triangular too slow
+Triangular finishing early
+0,3691901368 2,1158041954 2,1158041954 0,0000000000
+Triangular too slow
+Triangular finishing early
+0,3723313295 2,1172864437 2,1172864437 0,0000000000
+Triangular too slow
+Triangular finishing early
+0,3754725221 2,1187839508 2,1187839508 0,0000000000
+Triangular too slow
+Triangular finishing early
+0,3786137148 2,1202962399 2,1202962399 0,0000000000
+Triangular too slow
+Triangular finishing early
+0,3817549074 2,1218237877 2,1218237877 0,0000000000
+Triangular too slow
+Triangular finishing early
+0,3848961001 2,1233668327 2,1233668327 0,0000000000
+Triangular too slow
+Triangular finishing early
+0,3880372927 2,1249246597 2,1249246597 0,0000000000
+Triangular too slow
+Triangular finishing early
+0,3911784854 2,1264982224 2,1264982224 0,0000000000
+Triangular too slow
+Triangular finishing early
+0,3943196780 2,1280870438 2,1280870438 0,0000000000
+Triangular too slow
+Triangular finishing early
+0,3974608707 2,1296916008 2,1296916008 0,0000000000
+Triangular too slow
+Triangular finishing early
+0,4006020633 2,1313111782 2,1313111782 0,0000000000
+Triangular too slow
+Triangular finishing early
+0,4037432560 2,1329467297 2,1329467297 0,0000000000
+Triangular too slow
+Triangular finishing early
+0,4068844486 2,1345980167 2,1345980167 0,0000000000
+Triangular too slow
+Triangular finishing early
+0,4100256413 2,1362650394 2,1362650394 0,0000000000
+Triangular too slow
+Triangular finishing early
+0,4131668339 2,1379477978 2,1379477978 0,0000000000
+Triangular too slow
+Triangular finishing early
+0,4163080266 2,1396467686 2,1396467686 0,0000000000
+Triangular too slow
+Triangular finishing early
+0,4194492193 2,1413614750 2,1413614750 0,0000000000
+Triangular too slow
+Triangular finishing early
+0,4225904119 2,1430926323 2,1430926323 0,0000000000
+Triangular too slow
+Triangular finishing early
+0,4257316046 2,1448400021 2,1448400021 0,0000000000
+Triangular too slow
+Triangular finishing early
+0,4288727972 2,1466035843 2,1466035843 0,0000000000
+Triangular too slow
+Triangular finishing early
+0,4320139899 2,1483831406 2,1483831406 0,0000000000
+Triangular too slow
+Triangular finishing early
+0,4351551825 2,1501796246 2,1501796246 0,0000000000
+Triangular too slow
+Triangular finishing early
+0,4382963752 2,1519923210 2,1519923210 0,0000000000
+Triangular too slow
+Triangular finishing early
+0,4414375678 2,1538219452 2,1538219452 0,0000000000
+Triangular too slow
+Triangular finishing early
+0,4445787605 2,1556682587 2,1556682587 0,0000000000
+Triangular too slow
+Triangular finishing early
+0,4477199531 2,1575310230 2,1575310230 0,0000000000
+Triangular too slow
+Triangular finishing early
+0,4508611458 2,1594109535 2,1594109535 0,0000000000
+Triangular too slow
+Triangular finishing early
+0,4540023384 2,1613078117 2,1613078117 0,0000000000
+Triangular too slow
+Triangular finishing early
+0,4571435311 2,1632218361 2,1632218361 0,0000000000
+Triangular too slow
+Triangular finishing early
+0,4602847238 2,1651530266 2,1651530266 0,0000000000
+Triangular too slow
+Triangular finishing early
+0,4634259164 2,1671016216 2,1671016216 0,0000000000
+Triangular too slow
+Triangular finishing early
+0,4665671091 2,1690673828 2,1690673828 0,0000000000
+Triangular too slow
+Triangular finishing early
+0,4697083017 2,1710505486 2,1710505486 0,0000000000
+Triangular too slow
+Triangular finishing early
+0,4728494944 2,1730513573 2,1730513573 0,0000000000
+Triangular too slow
+Triangular finishing early
+0,4759906870 2,1750700474 2,1750700474 0,0000000000
+Triangular too slow
+Triangular finishing early
+0,4791318797 2,1771061420 2,1771061420 0,0000000000
+Triangular too slow
+Triangular finishing early
+0,4822730723 2,1791605949 2,1791605949 0,0000000000
+Triangular too slow
+Triangular finishing early
+0,4854142650 2,1812326908 2,1812326908 0,0000000000
+Triangular too slow
+Triangular finishing early
+0,4885554576 2,1833229065 2,1833229065 0,0000000000
+Triangular too slow
+Triangular finishing early
+0,4916966503 2,1854312420 2,1854312420 0,0000000000
+Triangular too slow
+Triangular finishing early
+0,4948378429 2,1875581741 2,1875581741 0,0000000000
+Triangular too slow
+Triangular finishing early
+0,4979790356 2,1897032261 2,1897032261 0,0000000000
+Triangular too slow
+Triangular finishing early
+0,5011202282 2,1918671131 2,1918671131 0,0000000000
+Triangular too slow
+Triangular finishing early
+0,5042614209 2,1940491199 2,1940491199 0,0000000000
+Triangular too slow
+Triangular finishing early
+0,5074026136 2,1962504387 2,1962504387 0,0000000000
+Triangular too slow
+Triangular finishing early
+0,5105438062 2,1984703541 2,1984703541 0,0000000000
+Triangular too slow
+Triangular finishing early
+0,5136849989 2,2007093430 2,2007093430 0,0000000000
+Triangular too slow
+Triangular finishing early
+0,5168261915 2,2029671669 2,2029671669 0,0000000000
+Triangular too slow
+Triangular finishing early
+0,5199673842 2,2052443027 2,2052443027 0,0000000000
+Triangular too slow
+Triangular finishing early
+0,5231085768 2,2075409889 2,2075409889 0,0000000000
+Triangular too slow
+Triangular finishing early
+0,5262497695 2,2098569870 2,2098569870 0,0000000000
+Triangular too slow
+Triangular finishing early
+0,5293909621 2,2121930122 2,2121930122 0,0000000000
+Triangular too slow
+Triangular finishing early
+0,5325321548 2,2145481110 2,2145481110 0,0000000000
+Triangular too slow
+Triangular finishing early
+0,5356733474 2,2169232368 2,2169232368 0,0000000000
+Triangular too slow
+Triangular finishing early
+0,5388145401 2,2193186283 2,2193186283 0,0000000000
+Triangular too slow
+Triangular finishing early
+0,5419557327 2,2217338085 2,2217338085 0,0000000000
+Triangular too slow
+Triangular finishing early
+0,5450969254 2,2241697311 2,2241697311 0,0000000000
+Triangular too slow
+Triangular finishing early
+0,5482381181 2,2266254425 2,2266254425 0,0000000000
+Triangular too slow
+Triangular finishing early
+0,5513793107 2,2291018963 2,2291018963 0,0000000000
+Triangular too slow
+Triangular finishing early
+0,5545205034 2,2315988541 2,2315988541 0,0000000000
+Triangular too slow
+Triangular finishing early
+0,5576616960 2,2341167927 2,2341167927 0,0000000000
+Triangular too slow
+Triangular finishing early
+0,5608028887 2,2366557121 2,2366557121 0,0000000000
+Triangular too slow
+Triangular finishing early
+0,5639440813 2,2392153740 2,2392153740 0,0000000000
+Triangular too slow
+Triangular finishing early
+0,5670852740 2,2417964935 2,2417964935 0,0000000000
+Triangular too slow
+Triangular finishing early
+0,5702264666 2,2443990707 2,2443990707 0,0000000000
+Triangular too slow
+Triangular finishing early
+0,5733676593 2,2470228672 2,2470228672 0,0000000000
+Triangular too slow
+Triangular finishing early
+0,5765088519 2,2496685982 2,2496685982 0,0000000000
+Triangular too slow
+Triangular finishing early
+0,5796500446 2,2523360252 2,2523360252 0,0000000000
+Triangular too slow
+Triangular finishing early
+0,5827912372 2,2550258636 2,2550258636 0,0000000000
+Triangular too slow
+Triangular finishing early
+0,5859324299 2,2577371597 2,2577371597 0,0000000000
+Triangular too slow
+Triangular finishing early
+0,5890736225 2,2604708672 2,2604708672 0,0000000000
+Triangular too slow
+Triangular finishing early
+0,5922148152 2,2632272243 2,2632272243 0,0000000000
+Triangular too slow
+Triangular finishing early
+0,5953560079 2,2660059929 2,2660059929 0,0000000000
+Triangular too slow
+Triangular finishing early
+0,5984972005 2,2688078880 2,2688078880 0,0000000000
+Triangular too slow
+Triangular finishing early
+0,6016383932 2,2716326714 2,2716326714 0,0000000000
+Triangular too slow
+Triangular finishing early
+0,6047795858 2,2744803429 2,2744803429 0,0000000000
+Triangular too slow
+Triangular finishing early
+0,6079207785 2,2773513794 2,2773513794 0,0000000000
+Triangular too slow
+Triangular finishing early
+0,6110619711 2,2802460194 2,2802460194 0,0000000000
+Triangular too slow
+Triangular finishing early
+0,6142031638 2,2831640244 2,2831640244 0,0000000000
+Triangular too slow
+Triangular finishing early
+0,6173443564 2,2861056328 2,2861056328 0,0000000000
+Triangular too slow
+Triangular finishing early
+0,6204855491 2,2890717983 2,2890717983 0,0000000000
+Triangular too slow
+Triangular finishing early
+0,6236267417 2,2920618057 2,2920618057 0,0000000000
+Triangular too slow
+Triangular finishing early
+0,6267679344 2,2950763702 2,2950763702 0,0000000000
+Triangular too slow
+Triangular finishing early
+0,6299091270 2,2981152534 2,2981152534 0,0000000000
+Triangular too slow
+Triangular finishing early
+0,6330503197 2,3011791706 2,3011791706 0,0000000000
+Triangular too slow
+Triangular finishing early
+0,6361915124 2,3042678833 2,3042678833 0,0000000000
+Triangular too slow
+Triangular finishing early
+0,6393327050 2,3073816299 2,3073816299 0,0000000000
+Triangular too slow
+Triangular finishing early
+0,6424738977 2,3105206490 2,3105206490 0,0000000000
+Triangular too slow
+Triangular finishing early
+0,6456150903 2,3136854172 2,3136854172 0,0000000000
+Triangular too slow
+Triangular finishing early
+0,6487562830 2,3168759346 2,3168759346 0,0000000000
+Triangular too slow
+Triangular finishing early
+0,6518974756 2,3200922012 2,3200922012 0,0000000000
+Triangular too slow
+Triangular finishing early
+0,6550386683 2,3233346939 2,3233346939 0,0000000000
+Triangular too slow
+Triangular finishing early
+0,6581798609 2,3266034126 2,3266034126 0,0000000000
+Triangular too slow
+Triangular finishing early
+0,6613210536 2,3298988342 2,3298988342 0,0000000000
+Triangular too slow
+Triangular finishing early
+0,6644622462 2,3332209587 2,3332209587 0,0000000000
+Triangular too slow
+Triangular finishing early
+0,6676034389 2,3365702629 2,3365702629 0,0000000000
+Triangular too slow
+Triangular finishing early
+0,6707446315 2,3399465084 2,3399465084 0,0000000000
+Triangular too slow
+Triangular finishing early
+0,6738858242 2,3433506489 2,3433506489 0,0000000000
+Triangular too slow
+Triangular finishing early
+0,6770270168 2,3467819691 2,3467819691 0,0000000000
+Triangular too slow
+Triangular finishing early
+0,6801682095 2,3502416611 2,3502416611 0,0000000000
+Triangular too slow
+Triangular finishing early
+0,6833094022 2,3537292480 2,3537292480 0,0000000000
+Triangular too slow
+Triangular finishing early
+0,6864505948 2,3572452068 2,3572452068 0,0000000000
+Triangular too slow
+Triangular finishing early
+0,6895917875 2,3607897758 2,3607897758 0,0000000000
+Triangular too slow
+Triangular finishing early
+0,6927329801 2,3643636703 2,3643636703 0,0000000000
+Triangular too slow
+Triangular finishing early
+0,6958741728 2,3679661751 2,3679661751 0,0000000000
+Triangular too slow
+Triangular finishing early
+0,6990153654 2,3715984821 2,3715984821 0,0000000000
+Triangular too slow
+Triangular finishing early
+0,7021565581 2,3752603531 2,3752603531 0,0000000000
+Triangular too slow
+Triangular finishing early
+0,7052977507 2,3789517879 2,3789517879 0,0000000000
+Triangular too slow
+Triangular finishing early
+0,7084389434 2,3826737404 2,3826737404 0,0000000000
+Triangular too slow
+Triangular finishing early
+0,7115801360 2,3864259720 2,3864259720 0,0000000000
+Triangular too slow
+Triangular finishing early
+0,7147213287 2,3902089596 2,3902089596 0,0000000000
+Triangular too slow
+Triangular finishing early
+0,7178625213 2,3940229416 2,3940229416 0,0000000000
+Triangular too slow
+Triangular finishing early
+0,7210037140 2,3978681564 2,3978681564 0,0000000000
+Triangular too slow
+Triangular finishing early
+0,7241449067 2,4017448425 2,4017448425 0,0000000000
+Triangular too slow
+Triangular finishing early
+0,7272860993 2,4056534767 2,4056534767 0,0000000000
+Triangular too slow
+Triangular finishing early
+0,7304272920 2,4095940590 2,4095940590 0,0000000000
+Triangular too slow
+Triangular finishing early
+0,7335684846 2,4135675430 2,4135675430 0,0000000000
+Triangular too slow
+Triangular finishing early
+0,7367096773 2,4175734520 2,4175734520 0,0000000000
+Triangular too slow
+Triangular finishing early
+0,7398508699 2,4216125011 2,4216125011 0,0000000000
+Triangular too slow
+Triangular finishing early
+0,7429920626 2,4256844521 2,4256844521 0,0000000000
+Triangular too slow
+Triangular finishing early
+0,7461332552 2,4297904968 2,4297904968 0,0000000000
+Triangular too slow
+Triangular finishing early
+0,7492744479 2,4339303970 2,4339303970 0,0000000000
+Triangular too slow
+Triangular finishing early
+0,7524156405 2,4381046295 2,4381046295 0,0000000000
+Triangular too slow
+Triangular finishing early
+0,7555568332 2,4423131943 2,4423131943 0,0000000000
+Triangular too slow
+Triangular finishing early
+0,7586980258 2,4465570450 2,4465570450 0,0000000000
+Triangular too slow
+Triangular finishing early
+0,7618392185 2,4508357048 2,4508357048 0,0000000000
+Triangular too slow
+Triangular finishing early
+0,7649804111 2,4551503658 2,4551503658 0,0000000000
+Triangular too slow
+Triangular finishing early
+0,7681216038 2,4595012665 2,4595012665 0,0000000000
+Triangular too slow
+Triangular finishing early
+0,7712627965 2,4638881683 2,4638881683 0,0000000000
+Triangular too slow
+Triangular finishing early
+0,7744039891 2,4683115482 2,4683115482 0,0000000000
+Triangular too slow
+Triangular finishing early
+0,7775451818 2,4727721214 2,4727721214 0,0000000000
+Triangular too slow
+Triangular finishing early
+0,7806863744 2,4772703648 2,4772703648 0,0000000000
+Triangular too slow
+Triangular finishing early
+0,7838275671 2,4818062782 2,4818062782 0,0000000000
+Triangular too slow
+Triangular finishing early
+0,7869687597 2,4863805771 2,4863805771 0,0000000000
+Triangular too slow
+Triangular finishing early
+0,7901099524 2,4909930229 2,4909930229 0,0000000000
+Triangular too slow
+Triangular finishing early
+0,7932511450 2,4956445694 2,4956445694 0,0000000000
+Triangular too slow
+Triangular finishing early
+0,7963923377 2,5003354549 2,5003354549 0,0000000000
+Triangular too slow
+Triangular finishing early
+0,7995335303 2,5050663948 2,5050663948 0,0000000000
+Triangular too slow
+Triangular finishing early
+0,8026747230 2,5098371506 2,5098371506 0,0000000000
+Triangular too slow
+Triangular finishing early
+0,8058159156 2,5146484375 2,5146484375 0,0000000000
+Triangular too slow
+Triangular finishing early
+0,8089571083 2,5195007324 2,5195007324 0,0000000000
+Triangular too slow
+Triangular finishing early
+0,8120983010 2,5243949890 2,5243949890 0,0000000000
+Triangular too slow
+Triangular finishing early
+0,8152394936 2,5293307304 2,5293307304 0,0000000000
+Triangular too slow
+Triangular finishing early
+0,8183806863 2,5343089104 2,5343089104 0,0000000000
+Triangular too slow
+Triangular finishing early
+0,8215218789 2,5393295288 2,5393295288 0,0000000000
+Triangular too slow
+Triangular finishing early
+0,8246630716 2,5443940163 2,5443940163 0,0000000000
+Triangular too slow
+Triangular finishing early
+0,8278042642 2,5495018959 2,5495018959 0,0000000000
+Triangular too slow
+Triangular finishing early
+0,8309454569 2,5546536446 2,5546536446 0,0000000000
+Triangular too slow
+Triangular finishing early
+0,8340866495 2,5598502159 2,5598502159 0,0000000000
+Triangular too slow
+Triangular finishing early
+0,8372278422 2,5650918484 2,5650918484 0,0000000000
+Triangular too slow
+Triangular finishing early
+0,8403690348 2,5703792572 2,5703792572 0,0000000000
+Triangular too slow
+Triangular finishing early
+0,8435102275 2,5757129192 2,5757129192 0,0000000000
+Triangular too slow
+Triangular finishing early
+0,8466514201 2,5810933113 2,5810933113 0,0000000000
+Triangular too slow
+Triangular finishing early
+0,8497926128 2,5865206718 2,5865206718 0,0000000000
+Triangular too slow
+Triangular finishing early
+0,8529338054 2,5919957161 2,5919957161 0,0000000000
+Triangular too slow
+Triangular finishing early
+0,8560749981 2,5975193977 2,5975193977 0,0000000000
+Triangular too slow
+Triangular finishing early
+0,8592161908 2,6030912399 2,6030912399 0,0000000000
+Triangular too slow
+Triangular finishing early
+0,8623573834 2,6087131500 2,6087131500 0,0000000000
+Triangular too slow
+Triangular finishing early
+0,8654985761 2,6143841743 2,6143841743 0,0000000000
+Triangular too slow
+Triangular finishing early
+0,8686397687 2,6201064587 2,6201064587 0,0000000000
+Triangular too slow
+Triangular finishing early
+0,8717809614 2,6258792877 2,6258792877 0,0000000000
+Triangular too slow
+Triangular finishing early
+0,8749221540 2,6317040920 2,6317040920 0,0000000000
+Triangular too slow
+Triangular finishing early
+0,8780633467 2,6375811100 2,6375811100 0,0000000000
+Triangular too slow
+Triangular finishing early
+0,8812045393 2,6435110569 2,6435110569 0,0000000000
+Triangular too slow
+Triangular finishing early
+0,8843457320 2,6494946480 2,6494946480 0,0000000000
+Triangular too slow
+Triangular finishing early
+0,8874869246 2,6555325985 2,6555325985 0,0000000000
+Triangular too slow
+Triangular finishing early
+0,8906281173 2,6616249084 2,6616249084 0,0000000000
+Triangular too slow
+Triangular finishing early
+0,8937693099 2,6677727699 2,6677727699 0,0000000000
+Triangular too slow
+Triangular finishing early
+0,8969105026 2,6739773750 2,6739773750 0,0000000000
+Triangular too slow
+Triangular finishing early
+0,9000516953 2,6802384853 2,6802384853 0,0000000000
+Triangular too slow
+Triangular finishing early
+0,9031928879 2,6865568161 2,6865568161 0,0000000000
+Triangular too slow
+Triangular finishing early
+0,9063340806 2,6929342747 2,6929342747 0,0000000000
+Triangular too slow
+Triangular finishing early
+0,9094752732 2,6993699074 2,6993699074 0,0000000000
+Triangular too slow
+Triangular finishing early
+0,9126164659 2,7058658600 2,7058658600 0,0000000000
+Triangular too slow
+Triangular finishing early
+0,9157576585 2,7124216557 2,7124216557 0,0000000000
+Triangular too slow
+Triangular finishing early
+0,9188988512 2,7190392017 2,7190392017 0,0000000000
+Triangular too slow
+Triangular finishing early
+0,9220400438 2,7257184982 2,7257184982 0,0000000000
+Triangular too slow
+Triangular finishing early
+0,9251812365 2,7324612141 2,7324612141 0,0000000000
+Triangular too slow
+Triangular finishing early
+0,9283224291 2,7392668724 2,7392668724 0,0000000000
+Triangular too slow
+Triangular finishing early
+0,9314636218 2,7461371422 2,7461371422 0,0000000000
+Triangular too slow
+Triangular finishing early
+0,9346048144 2,7530727386 2,7530727386 0,0000000000
+Triangular too slow
+Triangular finishing early
+0,9377460071 2,7600750923 2,7600750923 0,0000000000
+Triangular too slow
+Triangular finishing early
+0,9408871998 2,7671437263 2,7671437263 0,0000000000
+Triangular too slow
+Triangular finishing early
+0,9440283924 2,7742800713 2,7742800713 0,0000000000
+Triangular too slow
+Triangular finishing early
+0,9471695851 2,7814855576 2,7814855576 0,0000000000
+Triangular too slow
+Triangular finishing early
+0,9503107777 2,7887609005 2,7887609005 0,0000000000
+Triangular too slow
+Triangular finishing early
+0,9534519704 2,7961068153 2,7961068153 0,0000000000
+Triangular too slow
+Triangular finishing early
+0,9565931630 2,8035244942 2,8035244942 0,0000000000
+Triangular too slow
+Triangular finishing early
+0,9597343557 2,8110141754 2,8110141754 0,0000000000
+Triangular too slow
+Triangular finishing early
+0,9628755483 2,8185780048 2,8185780048 0,0000000000
+Triangular too slow
+Triangular finishing early
+0,9660167410 2,8262166977 2,8262166977 0,0000000000
+Triangular too slow
+Triangular finishing early
+0,9691579336 2,8339302540 2,8339302540 0,0000000000
+Triangular too slow
+Triangular finishing early
+0,9722991263 2,8417210579 2,8417210579 0,0000000000
+Triangular too slow
+Triangular finishing early
+0,9754403189 2,8495898247 2,8495898247 0,0000000000
+Triangular too slow
+Triangular finishing early
+0,9785815116 2,8575365543 2,8575365543 0,0000000000
+Triangular too slow
+Triangular finishing early
+0,9817227042 2,8655638695 2,8655638695 0,0000000000
+Triangular too slow
+Triangular finishing early
+0,9848638969 2,8736724854 2,8736724854 0,0000000000
+Triangular too slow
+Triangular finishing early
+0,9880050896 2,8818631172 2,8818631172 0,0000000000
+Triangular too slow
+Triangular finishing early
+0,9911462822 2,8901374340 2,8901374340 0,0000000000
+Triangular too slow
+Triangular finishing early
+0,9942874749 2,8984961510 2,8984961510 0,0000000000
+Triangular too slow
+Triangular finishing early
+0,9974286675 2,9069411755 2,9069411755 0,0000000000
+Triangular too slow
+Triangular finishing early
+1,0005698602 2,9154734612 2,9154734612 0,0000000000
+Triangular too slow
+Triangular finishing early
+1,0037110528 2,9240942001 2,9240942001 0,0000000000
+Triangular too slow
+Triangular finishing early
+1,0068522455 2,9328041077 2,9328041077 0,0000000000
+Triangular too slow
+Triangular finishing early
+1,0099934381 2,9416055679 2,9416055679 0,0000000000
+Triangular too slow
+Triangular finishing early
+1,0131346308 2,9505000114 2,9505000114 0,0000000000
+Triangular too slow
+Triangular finishing early
+1,0162758234 2,9594881535 2,9594881535 0,0000000000
+Triangular too slow
+Triangular finishing early
+1,0194170161 2,9685716629 2,9685716629 0,0000000000
+Triangular too slow
+Triangular finishing early
+1,0225582087 2,9777519703 2,9777519703 0,0000000000
+Triangular too slow
+Triangular finishing early
+1,0256994014 2,9870309830 2,9870309830 0,0000000000
+Triangular too slow
+Triangular finishing early
+1,0288405941 2,9964094162 2,9964094162 0,0000000000
+Triangular too slow
+Triangular finishing early
+1,0319817867 3,0058898926 3,0058898926 0,0000000000
+Triangular too slow
+Triangular finishing early
+1,0351229794 3,0154726505 3,0154726505 0,0000000000
+Triangular too slow
+Triangular finishing early
+1,0382641720 3,0251605511 3,0251605511 0,0000000000
+Triangular too slow
+Triangular finishing early
+1,0414053647 3,0349552631 3,0349552631 0,0000000000
+Triangular too slow
+Triangular finishing early
+1,0445465573 3,0448575020 3,0448575020 0,0000000000
+Triangular too slow
+Triangular finishing early
+1,0476877500 3,0548696518 3,0548696518 0,0000000000
+Triangular too slow
+Triangular finishing early
+1,0508289426 3,0649938583 3,0649938583 0,0000000000
+Triangular too slow
+Triangular finishing early
+1,0539701353 3,0752310753 3,0752310753 0,0000000000
+Triangular too slow
+Triangular finishing early
+1,0571113279 3,0855836868 3,0855836868 0,0000000000
+Triangular too slow
+Triangular finishing early
+1,0602525206 3,0960536003 3,0960536003 0,0000000000
+Triangular too slow
+Triangular finishing early
+1,0633937132 3,1066427231 3,1066427231 0,0000000000
+Triangular too slow
+Triangular finishing early
+1,0665349059 3,1173532009 3,1173532009 0,0000000000
+Triangular too slow
+Triangular finishing early
+1,0696760985 3,1281871796 3,1281871796 0,0000000000
+Triangular too slow
+Triangular finishing early
+1,0728172912 3,1391465664 3,1391465664 0,0000000000
+Triangular too slow
+Triangular finishing early
+1,0759584839 3,1502332687 3,1502332687 0,0000000000
+Triangular too slow
+Triangular finishing early
+1,0790996765 3,1614501476 3,1614501476 0,0000000000
+Triangular too slow
+Triangular finishing early
+1,0822408692 3,1727991104 3,1727991104 0,0000000000
+Triangular too slow
+Triangular finishing early
+1,0853820618 3,1842818260 3,1842818260 0,0000000000
+Triangular too slow
+Triangular finishing early
+1,0885232545 3,1959018707 3,1959018707 0,0000000000
+Triangular too slow
+Triangular finishing early
+1,0916644471 3,2076611519 3,2076611519 0,0000000000
+Triangular too slow
+Triangular finishing early
+1,0948056398 3,2195620537 3,2195620537 0,0000000000
+Triangular too slow
+Triangular finishing early
+1,0979468324 3,2316071987 3,2316071987 0,0000000000
+Trapezoidal too slow
+Triangular finishing early
+1,1010880251 3,2428331375 3,2428331375 0,0000000000
+Trapezoidal too slow
+Triangular finishing early
+1,1042292177 3,2503921986 3,2503921986 0,0000000000
+Trapezoidal too slow
+Triangular finishing early
+1,1073704104 3,2580637932 3,2580637932 0,0000000000
+Trapezoidal too slow
+Triangular finishing early
+1,1105116030 3,2658505440 3,2658505440 0,0000000000
+Trapezoidal too slow
+Triangular finishing early
+1,1136527957 3,2737550735 3,2737550735 0,0000000000
+Trapezoidal too slow
+Triangular finishing early
+1,1167939884 3,2817790508 3,2817790508 0,0000000000
+Trapezoidal too slow
+Triangular finishing early
+1,1199351810 3,2899255753 3,2899255753 0,0000000000
+Trapezoidal too slow
+Triangular finishing early
+1,1230763737 3,2981977463 3,2981977463 0,0000000000
+Trapezoidal too slow
+Triangular finishing early
+1,1262175663 3,3065984249 3,3065984249 0,0000000000
+Trapezoidal too slow
+Triangular finishing early
+1,1293587590 3,3151295185 3,3151295185 0,0000000000
+Trapezoidal too slow
+Triangular finishing early
+1,1324999516 3,3237948418 3,3237948418 0,0000000000
+Trapezoidal too slow
+Triangular finishing early
+1,1356411443 3,3325972557 3,3325972557 0,0000000000
+Trapezoidal too slow
+Triangular finishing early
+1,1387823369 3,3415398598 3,3415398598 0,0000000000
+Trapezoidal too slow
+Triangular finishing early
+1,1419235296 3,3506257534 3,3506257534 0,0000000000
+Trapezoidal too slow
+Triangular finishing early
+1,1450647222 3,3598587513 3,3598587513 0,0000000000
+Trapezoidal too slow
+Triangular finishing early
+1,1482059149 3,3692417145 3,3692417145 0,0000000000
+Trapezoidal too slow
+Triangular finishing early
+1,1513471075 3,3787784576 3,3787784576 0,0000000000
+Trapezoidal too slow
+Triangular finishing early
+1,1544883002 3,3884730339 3,3884730339 0,0000000000
+Trapezoidal too slow
+Triangular finishing early
+1,1576294928 3,3983285427 3,3983285427 0,0000000000
+Trapezoidal too slow
+Triangular finishing early
+1,1607706855 3,4083495140 3,4083495140 0,0000000000
+Trapezoidal too slow
+Triangular finishing early
+1,1639118782 3,4185395241 3,4185395241 0,0000000000
+Trapezoidal too slow
+Triangular finishing early
+1,1670530708 3,4289031029 3,4289031029 0,0000000000
+Trapezoidal too slow
+Triangular finishing early
+1,1701942635 3,4394445419 3,4394445419 0,0000000000
+Trapezoidal too slow
+Triangular finishing early
+1,1733354561 3,4501678944 3,4501678944 0,0000000000
+Trapezoidal too slow
+Triangular finishing early
+1,1764766488 3,4610781670 3,4610781670 0,0000000000
+Trapezoidal too slow
+Triangular finishing early
+1,1796178414 3,4721801281 3,4721801281 0,0000000000
+Trapezoidal too slow
+Triangular finishing early
+1,1827590341 3,4834780693 3,4834780693 0,0000000000
+Trapezoidal too slow
+Triangular finishing early
+1,1859002267 3,4949786663 3,4949786663 0,0000000000
+Trapezoidal too slow
+Triangular finishing early
+1,1890414194 3,5066852570 3,5066852570 0,0000000000
+Trapezoidal too slow
+Triangular finishing early
+1,1921826120 3,5186047554 3,5186047554 0,0000000000
+Trapezoidal too slow
+Triangular finishing early
+1,1953238047 3,5307416916 3,5307416916 0,0000000000
+Trapezoidal too slow
+Triangular finishing early
+1,1984649973 3,5431032181 3,5431032181 0,0000000000
+Trapezoidal too slow
+Triangular finishing early
+1,2016061900 3,5556941032 3,5556941032 0,0000000000
+Trapezoidal too slow
+Triangular finishing early
+1,2047473827 3,5685214996 3,5685214996 0,0000000000
+Trapezoidal too slow
+Triangular finishing early
+1,2078885753 3,5815920830 3,5815920830 0,0000000000
+Trapezoidal too slow
+Triangular finishing early
+1,2110297680 3,5949115753 3,5949115753 0,0000000000
+Trapezoidal too slow
+Triangular finishing early
+1,2141709606 3,6084880829 3,6084880829 0,0000000000
+Trapezoidal too slow
+Triangular finishing early
+1,2173121533 3,6223282814 3,6223282814 0,0000000000
+Trapezoidal too slow
+Triangular finishing early
+1,2204533459 3,6364402771 3,6364402771 0,0000000000
+Trapezoidal too slow
+Triangular finishing early
+1,2235945386 3,6508312225 3,6508312225 0,0000000000
+Trapezoidal too slow
+Triangular finishing early
+1,2267357312 3,6655094624 3,6655094624 0,0000000000
+Trapezoidal too slow
+Triangular finishing early
+1,2298769239 3,6804838181 3,6804838181 0,0000000000
+Trapezoidal too slow
+Triangular finishing early
+1,2330181165 3,6957626343 3,6957626343 0,0000000000
+Trapezoidal too slow
+Triangular finishing early
+1,2361593092 3,7113561630 3,7113561630 0,0000000000
+Trapezoidal too slow
+Triangular finishing early
+1,2393005018 3,7272725105 3,7272725105 0,0000000000
+Trapezoidal too slow
+Triangular finishing early
+1,2424416945 3,7435221672 3,7435221672 0,0000000000
+Trapezoidal too slow
+Triangular finishing early
+1,2455828871 3,7601161003 3,7601161003 0,0000000000
+Trapezoidal too slow
+Triangular finishing early
+1,2487240798 3,7770643234 3,7770643234 0,0000000000
+Trapezoidal too slow
+Triangular finishing early
+1,2518652725 3,7943787575 3,7943787575 0,0000000000
+Trapezoidal too slow
+Triangular finishing early
+1,2550064651 3,8120698929 3,8120698929 0,0000000000
+Trapezoidal too slow
+Triangular finishing early
+1,2581476578 3,8301510811 3,8301510811 0,0000000000
+Trapezoidal too slow
+Triangular finishing early
+1,2612888504 3,8486347198 3,8486347198 0,0000000000
+Trapezoidal too slow
+Triangular finishing early
+1,2644300431 3,8675336838 3,8675336838 0,0000000000
+Trapezoidal too slow
+Triangular finishing early
+1,2675712357 3,8868622780 3,8868622780 0,0000000000
+Trapezoidal too slow
+Triangular finishing early
+1,2707124284 3,9066352844 3,9066352844 0,0000000000
+Trapezoidal too slow
+Triangular finishing early
+1,2738536210 3,9268674850 3,9268674850 0,0000000000
+Trapezoidal too slow
+Triangular finishing early
+1,2769948137 3,9475748539 3,9475748539 0,0000000000
+Trapezoidal too slow
+Triangular finishing early
+1,2801360063 3,9687740803 3,9687740803 0,0000000000
+Trapezoidal too slow
+Triangular finishing early
+1,2832771990 3,9904818535 3,9904818535 0,0000000000
+Trapezoidal too slow
+Triangular finishing early
+1,2864183916 4,0127172470 4,0127172470 0,0000000000
+Trapezoidal too slow
+Triangular finishing early
+1,2895595843 4,0354990959 4,0354990959 0,0000000000
+Trapezoidal too slow
+Triangular finishing early
+1,2927007770 4,0588464737 4,0588464737 0,0000000000
+Trapezoidal too slow
+Triangular finishing early
+1,2958419696 4,0827827454 4,0827827454 0,0000000000
+Trapezoidal too slow
+Triangular finishing early
+1,2989831623 4,1073269844 4,1073269844 0,0000000000
+Trapezoidal too slow
+Triangular finishing early
+1,3021243549 4,1325049400 4,1325049400 0,0000000000
+Trapezoidal too slow
+Triangular finishing early
+1,3052655476 4,1583385468 4,1583385468 0,0000000000
+Trapezoidal too slow
+Triangular finishing early
+1,3084067402 4,1848554611 4,1848554611 0,0000000000
+Trapezoidal too slow
+Triangular finishing early
+1,3115479329 4,2120814323 4,2120814323 0,0000000000
+Trapezoidal too slow
+Triangular finishing early
+1,3146891255 4,2400445938 4,2400445938 0,0000000000
+Trapezoidal too slow
+Triangular finishing early
+1,3178303182 4,2687759399 4,2687759399 0,0000000000
+Trapezoidal too slow
+Triangular finishing early
+1,3209715108 4,2983059883 4,2983059883 0,0000000000
+Trapezoidal too slow
+Triangular finishing early
+1,3241127035 4,3286681175 4,3286681175 0,0000000000
+Trapezoidal too slow
+Triangular finishing early
+1,3272538961 4,3598976135 4,3598976135 0,0000000000
+Trapezoidal too slow
+Triangular finishing early
+1,3303950888 4,3920307159 4,3920307159 0,0000000000
+Trapezoidal too slow
+Triangular finishing early
+1,3335362814 4,4251079559 4,4251079559 0,0000000000
+Trapezoidal too slow
+Triangular finishing early
+1,3366774741 4,4591698647 4,4591698647 0,0000000000
+Trapezoidal too slow
+Triangular finishing early
+1,3398186668 4,4942607880 4,4942607880 0,0000000000
+Trapezoidal too slow
+Triangular finishing early
+1,3429598594 4,5304274559 4,5304274559 0,0000000000
+Trapezoidal too slow
+Triangular finishing early
+1,3461010521 4,5677185059 4,5677185059 0,0000000000
+Trapezoidal too slow
+Triangular finishing early
+1,3492422447 4,6061868668 4,6061868668 0,0000000000
+Trapezoidal too slow
+Triangular finishing early
+1,3523834374 4,6458873749 4,6458873749 0,0000000000
+Trapezoidal too slow
+Triangular finishing early
+1,3555246300 4,6868805885 4,6868805885 0,0000000000
+Trapezoidal too slow
+Triangular finishing early
+1,3586658227 4,7292284966 4,7292284966 0,0000000000
+Trapezoidal too slow
+Triangular finishing early
+1,3618070153 4,7729988098 4,7729988098 0,0000000000
+Trapezoidal too slow
+Triangular finishing early
+1,3649482080 4,8182635307 4,8182635307 0,0000000000
+Trapezoidal too slow
+Triangular finishing early
+1,3680894006 4,8650984764 4,8650984764 0,0000000000
+Trapezoidal too slow
+Triangular finishing early
+1,3712305933 4,9135856628 4,9135856628 0,0000000000
+Trapezoidal too slow
+Triangular finishing early
+1,3743717859 4,9638133049 4,9638133049 0,0000000000
+Trapezoidal too slow
+Triangular finishing early
+1,3775129786 5,0158739090 5,0158739090 0,0000000000
+Trapezoidal too slow
+Triangular finishing early
+1,3806541713 5,0698685646 5,0698685646 0,0000000000
+Trapezoidal too slow
+Triangular finishing early
+1,3837953639 5,1259059906 5,1259059906 0,0000000000
+Trapezoidal too slow
+Triangular finishing early
+1,3869365566 5,1841011047 5,1841011047 0,0000000000
+Trapezoidal too slow
+Triangular finishing early
+1,3900777492 5,2445793152 5,2445793152 0,0000000000
+Trapezoidal too slow
+Triangular finishing early
+1,3932189419 5,3074760437 5,3074760437 0,0000000000
+Trapezoidal too slow
+Triangular finishing early
+1,3963601345 5,3729357719 5,3729357719 0,0000000000
+Trapezoidal too slow
+Triangular finishing early
+1,3995013272 5,4411163330 5,4411163330 0,0000000000
+Trapezoidal too slow
+Triangular finishing early
+1,4026425198 5,5121879578 5,5121879578 0,0000000000
+Trapezoidal too slow
+Triangular finishing early
+1,4057837125 5,5863342285 5,5863342285 0,0000000000
+Trapezoidal too slow
+Triangular finishing early
+1,4089249051 5,6637563705 5,6637563705 0,0000000000
+Trapezoidal too slow
+Triangular finishing early
+1,4120660978 5,7446713448 5,7446713448 0,0000000000
+Trapezoidal too slow
+Triangular finishing early
+1,4152072904 5,8293185234 5,8293185234 0,0000000000
+Trapezoidal too slow
+Triangular finishing early
+1,4183484831 5,9179549217 5,9179549217 0,0000000000
+Trapezoidal too slow
+Triangular finishing early
+1,4214896757 6,0108642578 6,0108642578 0,0000000000
+Trapezoidal too slow
+Triangular finishing early
+1,4246308684 6,1083598137 6,1083598137 0,0000000000
+Trapezoidal too slow
+Triangular finishing early
+1,4277720611 6,2107796669 6,2107796669 0,0000000000
+Trapezoidal too slow
+Triangular finishing early
+1,4309132537 6,3185000420 6,3185000420 0,0000000000
+Trapezoidal too slow
+Triangular finishing early
+1,4340544464 6,4319353104 6,4319353104 0,0000000000
+Trapezoidal too slow
+Triangular finishing early
+1,4371956390 6,5515422821 6,5515422821 0,0000000000
+Trapezoidal too slow
+Triangular finishing early
+1,4403368317 6,6778292656 6,6778292656 0,0000000000
+Trapezoidal too slow
+Triangular finishing early
+1,4434780243 6,8113570213 6,8113570213 0,0000000000
+Trapezoidal too slow
+Triangular finishing early
+1,4466192170 6,9527544975 6,9527544975 0,0000000000
+Trapezoidal too slow
+Triangular finishing early
+1,4497604096 7,1027221680 7,1027221680 0,0000000000
+Trapezoidal too slow
+Triangular finishing early
+1,4529016023 7,2620439529 7,2620439529 0,0000000000
+Trapezoidal too slow
+Triangular finishing early
+1,4560427949 7,4316029549 7,4316029549 0,0000000000
+Trapezoidal too slow
+Triangular finishing early
+1,4591839876 7,6123929024 7,6123929024 0,0000000000
+Trapezoidal too slow
+Triangular finishing early
+1,4623251802 7,8055396080 7,8055396080 0,0000000000
+Trapezoidal too slow
+Triangular finishing early
+1,4654663729 8,0123205185 8,0123205185 0,0000000000
+Trapezoidal too slow
+Triangular finishing early
+1,4686075656 8,2341928482 8,2341928482 0,0000000000
+Trapezoidal too slow
+Triangular finishing early
+1,4717487582 8,4728240967 8,4728240967 0,0000000000
+Trapezoidal too slow
+Triangular finishing early
+1,4748899509 8,7301330566 8,7301330566 0,0000000000
+Trapezoidal too slow
+Triangular finishing early
+1,4780311435 9,0083322525 9,0083322525 0,0000000000
+Trapezoidal too slow
+Triangular finishing early
+1,4811723362 9,3099966049 9,3099966049 0,0000000000
+Trapezoidal too slow
+Triangular finishing early
+1,4843135288 9,6381263733 9,6381263733 0,0000000000
+Trapezoidal too slow
+Triangular finishing early
+1,4874547215 9,9962482452 9,9962482452 0,0000000000
+Trapezoidal too slow
+Triangular finishing early
+1,4905959141 10,3885231018 10,3885231018 0,0000000000
+Trapezoidal too slow
+Triangular finishing early
+1,4937371068 10,8199024200 10,8199024200 0,0000000000
+Trapezoidal too slow
+Triangular finishing early
+1,4968782994 11,2963161469 11,2963161469 0,0000000000
+Trapezoidal too slow
+Triangular finishing early
+1,5000194921 11,8249206543 11,8249206543 0,0000000000
+Trapezoidal too slow
+Triangular finishing early
+1,5031606847 12,4144268036 12,4144268036 0,0000000000
+Trapezoidal too slow
+Triangular finishing early
+1,5063018774 13,0755414963 13,0755414963 0,0000000000
+Trapezoidal too slow
+Triangular finishing early
+1,5094430700 13,8215465546 13,8215465546 0,0000000000
+Trapezoidal too slow
+Triangular finishing early
+1,5125842627 14,6691169739 14,6691169739 0,0000000000
+Trapezoidal too slow
+Triangular finishing early
+1,5157254554 15,6394309998 15,6394309998 0,0000000000
+Trapezoidal too slow
+Triangular finishing early
+1,5188666480 16,7597732544 16,7597732544 0,0000000000
+Trapezoidal too slow
+Triangular finishing early
+1,5220078407 18,0658283234 18,0658283234 0,0000000000
+Trapezoidal too slow
+Triangular finishing early
+1,5251490333 19,6050701141 19,6050701141 0,0000000000
+Trapezoidal too slow
+Triangular finishing early
+1,5282902260 21,4419116974 21,4419116974 0,0000000000
+Trapezoidal too slow
+Triangular finishing early
+1,5314314186 23,6657047272 23,6657047272 0,0000000000
+Trapezoidal too slow
+Triangular finishing early
+1,5345726113 26,4036273956 26,4036273956 0,0000000000
+Trapezoidal too slow
+Triangular finishing early
+1,5377138039 29,8421707153 29,8421707153 0,0000000000
+Trapezoidal too slow
+Triangular finishing early
+1,5408549966 34,2646713257 34,2646713257 0,0000000000
+Trapezoidal too slow
+Triangular finishing early
+1,5439961892 40,1201934814 40,1201934814 0,0000000000
+Trapezoidal too slow
+Triangular finishing early
+1,5471373819 48,1583137512 48,1583137512 0,0000000000
+Trapezoidal too slow
+Triangular finishing early
+1,5502785745 59,7138748169 59,7138748169 0,0000000000
+Trapezoidal too slow
+Triangular finishing early
+1,5534197672 77,3707733154 77,3707733154 0,0000000000
+Trapezoidal too slow
+Triangular finishing early
+1,5565609599 106,7221908569 106,7221908569 0,0000000000
+Trapezoidal too slow
+Triangular finishing early
+1,5597021525 161,9545135498 161,9545135498 0,0000000000
+Trapezoidal too slow
+Triangular finishing early
+1,5628433452 289,0400085449 289,0400085449 0,0000000000
+Trapezoidal too slow
+Triangular finishing early
+1,5659845378 720,0529174805 720,0529174805 0,0000000000
+Trapezoidal too slow
+Triangular finishing early
+1,5691257305 5411,5380859375 5411,5380859375 0,0000000000
