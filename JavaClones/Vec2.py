@@ -1,20 +1,18 @@
-import dataclasses
 import math
-from typing import Union
+from dataclasses import dataclass
 
 
-@dataclasses.dataclass(frozen=True)
+@dataclass(frozen=True)
 class Vec2:
     x: float
     y: float
 
+    @staticmethod
+    def zero() -> "Vec2":
+        return Vec2(0, 0)
+
     def __add__(self, other):
-        if isinstance(other, int):
-            return Vec2(
-                self.x + other,
-                self.y + other,
-            )
-        elif isinstance(other, float):
+        if isinstance(other, (int, float)):
             return Vec2(
                 self.x + other,
                 self.y + other,
@@ -30,12 +28,7 @@ class Vec2:
         return self.__add__(other)
 
     def __sub__(self, other):
-        if isinstance(other, int):
-            return Vec2(
-                self.x - other,
-                self.y - other,
-            )
-        elif isinstance(other, float):
+        if isinstance(other, (int, float)):
             return Vec2(
                 self.x - other,
                 self.y - other,
@@ -61,24 +54,22 @@ class Vec2:
         raise NotImplementedError("{}".format(type(other)))
 
     def __lt__(self, other):
-        return self.length() < other.length()
+        return self.get_length2() < other.get_length2()
 
-    def length(self) -> float:
-        return math.sqrt(self.x ** 2 + self.y ** 2)
+    def get_length(self) -> float:
+        return math.sqrt(self.get_length2())
+
+    def get_length2(self) -> float:
+        return self.x ** 2 + self.y ** 2
+
+    def get_angle(self) -> float:
+        return math.atan2(self.y, self.x)
+
+    def turn(self, angle: float) -> "Vec2":
+        return Vec2(
+            self.x * math.cos(angle) - self.y * math.sin(angle),
+            self.y * math.cos(angle) + self.x * math.sin(angle)
+        )
 
     def __str__(self):
         return "{:.3f}, {:.3f}".format(self.x, self.y)
-
-
-class Trajectory:
-    def get_position(self, tt: float) -> Union[float, Vec2]:
-        raise NotImplementedError
-
-    def get_velocity(self, tt: float) -> Union[float, Vec2]:
-        raise NotImplementedError
-
-    def get_acceleration(self, tt: float) -> Union[float, Vec2]:
-        raise NotImplementedError
-
-    def get_total_time(self) -> Union[float, Vec2]:
-        raise NotImplementedError
