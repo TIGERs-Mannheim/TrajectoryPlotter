@@ -98,17 +98,21 @@ class Plotter:
         return sim_steps[0].trajectory
 
     def _sim_traj(self):
-        sim_steps = Simulator().simulate(self.config, 300, 1)
+        sim_steps = Simulator().simulate(self.config, 30, 10)
         image_paths = []
         os.makedirs("./tmp", exist_ok=True)
         img_path = os.path.abspath(f"./tmp/{self.build_file_name(PlotType.SIM_TRAJ)}-")
+        step_print = ""
         for i, step in enumerate(sim_steps):
+            if isinstance(step, SimStep1d):
+                step_print += f"({step.current_pos():.60f}, {step.current_vel():.60f}, {step.tt:.60f})  # {i}\r\n"
+            elif isinstance(step, SimStep2d):
+                step_print += f"(Vec2({step.current_pos().x:.60f},{step.current_pos().y:.60f}), Vec2(" \
+                              f"{step.current_vel().x:.60f}, {step.current_vel().y:.60f}), {step.tt:.60f})  # {i}\r\n"
             fig = self._draw_last_sim_steps_from_list(sim_steps[:i + 1])
             title = self.build_title(PlotType.SIM_TRAJ, s=self.s - step.current_pos(),
                                      v0=step.current_vel(), tt=self.tt - step.current_time())
             title += " | {}".format(i)
-            # print("{}: ({}), ({}), {}".format(i, self.s - sim_steps[i].current_pos(),
-            # sim_steps[i].current_vel(), self.tt - sim_steps[i].current_time()))
             img_path_i = img_path + f"{i}.png"
             fig.suptitle(title, fontsize=20)
             fig.savefig(img_path_i)
@@ -117,10 +121,13 @@ class Plotter:
             image_paths.append(img_path_i)
 
         gif_name = self.build_file_name(PlotType.SIM_TRAJ) + ".gif"
+        print_name = self.build_file_name(PlotType.SIM_TRAJ) + ".txt"
         with imageio.get_writer(gif_name, mode="I") as writer:
             for path in image_paths:
                 image = imageio.v2.imread(path)
                 writer.append_data(image)
+        with open(print_name, "w") as file:
+            file.write(step_print)
         for path in set(image_paths):
             os.remove(path)
         return sim_steps[0].trajectory

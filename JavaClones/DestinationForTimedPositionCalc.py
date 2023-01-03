@@ -143,7 +143,10 @@ class DestinationForTimedPositionCalc:
     def calc_slowest_direct_time(s: float, v0: float, a_max: float) -> float:
 
         a_dec = -a_max if (v0 >= 0) else a_max
-        sqrt = math.sqrt(v0 * v0 + 2 * a_dec * s)
+        if v0 * v0 + 2 * a_dec * s <= 0:
+            sqrt = 0
+        else:
+            sqrt = math.sqrt(v0 * v0 + 2 * a_dec * s)
         return ((-v0 + sqrt) / a_dec) if (v0 >= 0.0) else ((-v0 - sqrt) / a_dec)
 
     @staticmethod

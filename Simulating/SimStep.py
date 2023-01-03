@@ -18,6 +18,10 @@ class SimStep:
     acc: Union[List[float], List[Vec2]]
     v_max: Union[float, Vec2]
     a_max: Union[float, Vec2]
+    tt: Optional[float]
+
+    def __post_init__(self):
+        assert len(self.times) == len(self.pos) == len(self.vel) == len(self.acc)
 
     def current_time(self) -> Union[float, Vec2]:
         return self.times[0]
@@ -75,6 +79,7 @@ class SimStep2d(SimStep):
             acc=[getattr(i, attr) for i in self.acc],
             v_max=getattr(self.v_max, attr),
             a_max=getattr(self.a_max, attr),
+            tt=self.tt,
         )
 
     def split(self) -> Tuple[SimStep1d, SimStep1d]:

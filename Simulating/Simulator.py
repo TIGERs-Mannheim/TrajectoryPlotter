@@ -16,73 +16,82 @@ from Simulating.SimStep import SimStep, SimStep1d, SimStep2d
 
 
 class Simulator:
-    _config: SimConfig
-    _factory: BangBangTrajectoryFactory = BangBangTrajectoryFactory()
-    _pos_shifter: DestinationForTimedPositionCalc = DestinationForTimedPositionCalc()
+
+    def __init__(self):
+        self._config: SimConfig
+        self._factory: BangBangTrajectoryFactory = BangBangTrajectoryFactory()
+        self._pos_shifter: DestinationForTimedPositionCalc = DestinationForTimedPositionCalc()
 
     def __getattr__(self, item):
         return getattr(self._config, item)
 
-    def simulate(self, config: SimConfig, num_steps: int, step_size: int):
-        self._config = config
+    @staticmethod
+    def simulate(config: SimConfig, num_steps: int, step_size: int):
+        sim = Simulator()
+        sim._config = config
         num_points = num_steps * step_size
-        total_traj, alpha = self._next_traj(self.s, self.v0, self.tt)
+        total_traj, alpha = sim._next_traj(Vec2.zero(), sim.v0, sim.tt)
         total_times = np.linspace(0, total_traj.get_total_time(), num_points)
-        sim_steps: List[SimStep] = [self._build_sim_step(0, total_times, total_traj, alpha, pos_offset=0, tt=self.tt)]
+        sim_steps: List[SimStep] = [sim._build_sim_step(0, total_times, total_traj, alpha, tt=sim.tt)]
 
         for step in range(1, num_steps + 1):
-            s0 = sim_steps[-1].pos[min(step_size, len(sim_steps[-1].pos) - 1)]
-            v0 = sim_steps[-1].vel[min(step_size, len(sim_steps[-1].vel) - 1)]
-            if self.tt is None:
+            next_index = min(step_size, len(sim_steps[-1].times) - 1)
+            s0 = sim_steps[-1].pos[next_index]
+            v0 = sim_steps[-1].vel[next_index]
+            if sim.tt is None:
                 tt = None
             else:
-                tt = self.tt - sim_steps[-1].times[min(step_size, len(sim_steps[-1].times) - 1)]
+                tt = sim.tt - sim_steps[-1].times[next_index]
 
-            times = sim_steps[-1].times[min(step_size, len(sim_steps[-1].times) - 1):].copy()
-            next_traj, alpha = self._next_traj(self.s - s0, v0, tt)
-            sim_steps.append(self._build_sim_step(step, times, next_traj, alpha, s0, tt))
+            times = sim_steps[-1].times[next_index:].copy()
+            next_traj, alpha = sim._next_traj(s0, v0, tt)
+            sim_steps.append(sim._build_sim_step(step, times, next_traj, alpha, tt))
         return sim_steps
 
-    def _next_traj(self, s: Union[float, Vec2], v0: Union[float, Vec2], tt: Optional[float]) \
+    def _next_traj(self, s0: Union[float, Vec2], v0: Union[float, Vec2], tt: Optional[float]) \
             -> Tuple[Trajectory, float]:
-        if isinstance(s, (float, int)):
+        assert type(s0) == type(v0)
+        if isinstance(s0, (float, int)):
+            s1 = self.s
             if tt is not None:
-                s = self._pos_shifter.get_timed_pos_1d(s, v0, self.v_max, self.a_max, tt).pos
-            return self._factory.traj_1d(0, s, v0, self.v_max, self.a_max), 0
-        elif isinstance(s, Vec2):
+                s1 = s0 + self._pos_shifter.get_timed_pos_1d(self.s - s0, v0, self.v_max, self.a_max, tt).pos
+            return self._factory.traj_1d(s0, s1, v0, self.v_max, self.a_max), 0
+        elif isinstance(s0, Vec2):
             if self.primary_direction is None:
                 if tt is not None:
-                    s, alpha = self._pos_shifter.destination_for_bang_bang_2d_sync(
-                        Vec2(0, 0), s, v0, self.v_max, self.a_max, tt)
-                    return self._factory.traj_2d_sync(Vec2(0, 0), s, v0, self.v_max, self.a_max), alpha
+                    s1, alpha = self._pos_shifter.destination_for_bang_bang_2d_sync(
+                        s0, self.s, v0, self.v_max, self.a_max, tt)
+                    return self._factory.traj_2d_sync(s0, s1, v0, self.v_max, self.a_max), alpha
                 else:
-                    traj = self._factory.traj_2d_sync(Vec2(0, 0), s, v0, self.v_max, self.a_max)
+                    traj = self._factory.traj_2d_sync(s0, self.s, v0, self.v_max, self.a_max)
                     return traj, traj.alpha
             else:
                 if tt is not None:
-                    s, alpha = self._pos_shifter.destination_for_bang_bang_2d_async(
-                        Vec2(0, 0), s, v0, self.v_max, self.a_max, tt, self.primary_direction)
-                    return self._factory.traj_2d_async(Vec2(0, 0), s, v0, self.v_max, self.a_max,
+                    s1, alpha = self._pos_shifter.destination_for_bang_bang_2d_async(
+                        s0, self.s, v0, self.v_max, self.a_max, tt, self.primary_direction)
+                    return self._factory.traj_2d_async(s0, s1, v0, self.v_max, self.a_max,
                                                        self.primary_direction), alpha
                 else:
-                    traj = self._factory.traj_2d_async(Vec2(0, 0), s, v0, self.v_max, self.a_max,
+                    traj = self._factory.traj_2d_async(s0, self.s, v0, self.v_max, self.a_max,
                                                        self.primary_direction)
                     return traj, traj.alpha
         else:
-            raise ValueError("Unexpected Distance type {}".format(type(s)))
+            raise ValueError("Unexpected Distance type {}".format(type(s0)))
 
     def _build_sim_step(self, current_step: int, step_times: Union[List[float], np.ndarray], traj: Trajectory,
-                        alpha: float, pos_offset: Union[float, Vec2], tt: Optional[float]) -> SimStep:
+                        alpha: float, tt: Optional[float]) -> SimStep:
+        offset = 1e-6 if current_step != 0 else 0  # Offset the time a bit to avoid errors due to floating precision
         if isinstance(traj, BangBangTrajectory1D):
             return SimStep1d(
                 trajectory=traj,
                 step=current_step,
                 times=step_times,
-                pos=[pos_offset + traj.get_position(t - step_times[0]) for t in step_times],
-                vel=[traj.get_velocity(t - step_times[0]) for t in step_times],
-                acc=[traj.get_acceleration(t - step_times[0]) for t in step_times],
+                pos=[traj.get_position(t - step_times[0] + offset) for t in step_times],
+                vel=[traj.get_velocity(t - step_times[0] + offset) for t in step_times],
+                acc=[traj.get_acceleration(t - step_times[0] + offset) for t in step_times],
                 v_max=traj.v_max,
                 a_max=traj.a_max,
+                tt=tt,
             )
         elif isinstance(traj, (BangBangTrajectory2D, BangBangTrajectory2DAsync)):
             alpha_data = self.create_alpha_data(self._config, s0=traj.get_position(0), v0=traj.get_velocity(0), tt=tt)
@@ -90,13 +99,14 @@ class Simulator:
                 trajectory=traj,
                 step=current_step,
                 times=step_times,
-                pos=[pos_offset + traj.get_position(t - step_times[0]) for t in step_times],
-                vel=[traj.get_velocity(t - step_times[0]) for t in step_times],
-                acc=[traj.get_acceleration(t - step_times[0]) for t in step_times],
+                pos=[traj.get_position(t - step_times[0] + offset) for t in step_times],
+                vel=[traj.get_velocity(t - step_times[0] + offset) for t in step_times],
+                acc=[traj.get_acceleration(t - step_times[0] + offset) for t in step_times],
                 alpha=alpha,
                 alpha_data=alpha_data,
                 v_max=Vec2(traj.x.v_max, traj.y.v_max),
                 a_max=Vec2(traj.x.a_max, traj.y.a_max),
+                tt=tt,
             )
         else:
             raise ValueError
