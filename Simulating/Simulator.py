@@ -30,7 +30,7 @@ class Simulator:
         sim = Simulator()
         sim._config = config
         num_points = num_steps * step_size
-        total_traj, alpha = sim._next_traj(Vec2.zero(), sim.v0, sim.tt)
+        total_traj, alpha = sim._next_traj(Vec2.zero() if isinstance(sim.v0, Vec2) else 0.0, sim.v0, sim.tt)
         total_times = np.linspace(0, total_traj.get_total_time(), num_points)
         sim_steps: List[SimStep] = [sim._build_sim_step(0, total_times, total_traj, alpha, tt=sim.tt)]
 
@@ -50,12 +50,13 @@ class Simulator:
 
     def _next_traj(self, s0: Union[float, Vec2], v0: Union[float, Vec2], tt: Optional[float]) \
             -> Tuple[Trajectory, float]:
-        assert type(s0) == type(v0)
-        if isinstance(s0, (float, int)):
+        if isinstance(s0, float):
             s1 = self.s
+            v_max = self.v_max_1d if self.v_max_1d is not None else self.v_max
+            a_max = self.a_max_1d if self.a_max_1d is not None else self.a_max
             if tt is not None:
-                s1 = s0 + self._pos_shifter.get_timed_pos_1d(self.s - s0, v0, self.v_max, self.a_max, tt).pos
-            return self._factory.traj_1d(s0, s1, v0, self.v_max, self.a_max), 0
+                s1 = s0 + self._pos_shifter.get_timed_pos_1d(self.s - s0, v0, v_max, a_max, tt).pos
+            return self._factory.traj_1d(s0, s1, v0, v_max, a_max), 0
         elif isinstance(s0, Vec2):
             if self.primary_direction is None:
                 if tt is not None:

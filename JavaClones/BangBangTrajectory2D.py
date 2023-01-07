@@ -7,9 +7,10 @@ from JavaClones.Vec2 import Vec2
 
 
 class BangBangTrajectory2D(Trajectory):
-    x = BangBangTrajectory1D()
-    y = BangBangTrajectory1D()
-    alpha: float
+    def __init__(self):
+        self.x = BangBangTrajectory1D()
+        self.y = BangBangTrajectory1D()
+        self.alpha: float = 0.0
 
     def get_position(self, t: float) -> Vec2:
         return Vec2(self.x.get_position(t), self.y.get_position(t))
