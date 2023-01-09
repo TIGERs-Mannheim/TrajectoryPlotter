@@ -38,9 +38,9 @@ class Plotter:
             custom_headings = list()
         s_str = "{:.3f}".format(s) if isinstance(s, float) else str(s)
         v0_str = "{:.3f}".format(v0) if isinstance(v0, float) else str(v0)
-        tt_str = "{:.3f} s".format(tt) if tt is not None else "None"
+        tt_str = "{:.3f}\\,$s".format(tt) if tt is not None else "$None"
 
-        return "{:s} s = {:s} m | v0 = {:s} m/s | tt = {:s}" \
+        return "{:s} $s = {:s}\\,$m | $v_0 = {:s}\\,$m/s | $t_t = {:s}" \
                    .format(plot_type.name, s_str, v0_str, tt_str) \
                + (" | " + " | ".join(custom_headings) if len(custom_headings) > 0 else "")
 
@@ -206,11 +206,37 @@ class Plotter:
             ax_a.plot(sim_steps[-1].times, sim_steps[-1].acc)
             ax_a.grid(True)
 
-        if self.tt is not None and s is not None:
-            ax_p.scatter(x=self.tt, y=s, color="red", marker="x", s=20 * 6)
-            ax_v.plot([self.tt, self.tt], [-self.v_max - 0.25, self.v_max + 0.25], color="gray")
+        additional_ticks = []
+        additional_tick_labels = []
+
+        def mark_time(t: float, pos: Optional[float], color: str, name):
+            if pos is not None:
+                ax_p.scatter(x=t, y=pos, color=color, marker="x", s=20 * 6)
+            else:
+                lim = ax_p.get_ylim()
+                ax_p.plot([t, t], [*lim], color=color)
+                ax_p.set_ylim(lim)
+            ax_v.plot([t, t], [-self.v_max - 0.25, self.v_max + 0.25], color=color)
             if ax_a is not None:
-                ax_a.plot([self.tt, self.tt], [-self.a_max - 0.25, self.a_max + 0.25], color="gray")
+                ax_a.plot([t, t], [-self.a_max - 0.25, self.a_max + 0.25], color=color)
+            additional_ticks.append(t + 0.0001)
+            additional_tick_labels.append(name)
+
+        if self.tt is not None and s is not None:
+            mark_time(self.tt, s, "red", "\n$t_t$")
+
+        mark_time(0, None, "gray", "\n$t_0$")
+        for i in range(sim_steps[-1].trajectory.numParts):
+            part = sim_steps[-1].trajectory.parts[i]
+            if np.isclose(part.t_end + 0.0001, additional_ticks[-1]):
+                additional_tick_labels[-1] += f"$,t_{i+1}$"
+            else:
+                mark_time(part.t_end, None, "gray", f"\n$t_{i + 1}$")
+
+        ax_p.set_xticks(additional_ticks, additional_tick_labels, minor=True)
+        ax_v.set_xticks(additional_ticks, additional_tick_labels, minor=True)
+        if ax_a is not None:
+            ax_a.set_xticks(additional_ticks, additional_tick_labels, minor=True, va="top")
 
     def _fill_2d(self, ax_3d, ax_alpha, sim_steps: List[SimStep2d]):
         passed_times = [sim_step.current_time() for sim_step in sim_steps]
@@ -236,6 +262,7 @@ class Plotter:
             ax_alpha.set_xlabel("alpha [rad]")
             ax_alpha.set_ylabel("time [s]")
             ax_alpha.set_ylim([-1, 5])
+            ax_alpha.set_xlim([-0.05, np.pi * 0.5 + 0.05])
             self._fill_alpha(ax_alpha, sim_steps[-1].alpha_data)
             ax_alpha.plot([sim_steps[-1].alpha, sim_steps[-1].alpha], [-5, 5], color="red", label="chosen", ls="--")
             ax_alpha.legend()
@@ -246,6 +273,7 @@ class Plotter:
 
     @staticmethod
     def _fill_alpha(ax_alpha, data: AlphaData):
+        ax_alpha.plot([-5, 5], [0, 0], color="gray")
         ax_alpha.plot(data.alphas, data.diffs, label="|x-y|", color="orange")
         ax_alpha.plot(data.alphas, data.x_times, label="x", color="blue")
         ax_alpha.plot(data.alphas, data.y_times, label="y", color="cyan")
@@ -258,7 +286,7 @@ class Plotter:
             if draw_acc:
                 fig, (ax_p, ax_v, ax_a) = plt.subplots(1, 3, figsize=(12, 3.5))
             else:
-                fig, (ax_p, ax_v) = plt.subplots(1, 2, figsize=(12, 3.5))
+                fig, (ax_p, ax_v) = plt.subplots(1, 2, figsize=(8, 3.5))
                 ax_a = None
             self._fill_1d(ax_p, ax_v, ax_a, s=self.s, sim_steps=sim_steps_1d)
 
