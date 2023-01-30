@@ -108,7 +108,7 @@ class Plotter:
         if isinstance(self.save_fig, str):
             fig.savefig(self.save_fig)
         elif self.save_fig:
-            fig.savefig(self.build_file_name(PlotType.TRAJ) + ".png")
+            fig.savefig(self.build_file_name(PlotType.TRAJ) + ".svg")
         if not self.show_fig:
             plt.close(fig)
         return sim_steps[0].trajectory
@@ -129,7 +129,7 @@ class Plotter:
             title = self.build_title(PlotType.SIM_TRAJ, s=self.s - step.current_pos(),
                                      v0=step.current_vel(), tt=self.tt - step.current_time())
             title += " | {}".format(i)
-            img_path_i = img_path + f"{i}.png"
+            img_path_i = img_path + f"{i}.svg"
             fig.suptitle(title, fontsize=17)
             if self.save_fig:
                 fig.savefig(img_path_i)
@@ -165,7 +165,7 @@ class Plotter:
         if isinstance(self.save_fig, str):
             fig.savefig(self.save_fig)
         elif self.save_fig:
-            fig.savefig(self.build_file_name(PlotType.TRAJ) + ".png")
+            fig.savefig(self.build_file_name(PlotType.TRAJ) + ".svg")
         if not self.show_fig:
             plt.close(fig)
 
