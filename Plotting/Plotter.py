@@ -36,13 +36,12 @@ class Plotter:
                     tt: float, custom_headings: List[str] = None) -> str:
         if custom_headings is None:
             custom_headings = list()
-        s_str = "{:.3f}".format(s) if isinstance(s, float) else str(s)
-        v0_str = "{:.3f}".format(v0) if isinstance(v0, float) else str(v0)
+        s_str = "s_t = {:.3f}".format(s) if isinstance(s, float) else "S_t = " + str(s)
+        v0_str = "v_t = {:.3f}".format(v0) if isinstance(v0, float) else "V_t = " + str(v0)
         tt_str = "{:.3f}\\,$s".format(tt) if tt is not None else "$None"
 
-        return "{:s} $s = {:s}\\,$m | $v_0 = {:s}\\,$m/s | $t_t = {:s}" \
-                   .format(plot_type.name, s_str, v0_str, tt_str) \
-               + (" | " + " | ".join(custom_headings) if len(custom_headings) > 0 else "")
+        return "{:s} ${:s}\\,$m | ${:s}\\,$m/s | $t_t = {:s}".format(plot_type.name, s_str, v0_str, tt_str) \
+            + (" | " + " | ".join(custom_headings) if len(custom_headings) > 0 else "")
 
     def build_file_name(self, plot_type: PlotType) -> str:
         tt = "{:04.0f}".format(self.tt * 1000) if self.tt is not None else "none"
@@ -104,7 +103,7 @@ class Plotter:
     def _traj(self, draw_acc: bool):
         sim_steps = Simulator().simulate(self.config, 1, 300)
         fig = self._draw_last_sim_steps_from_list(sim_steps[:1], draw_acc=draw_acc)
-        fig.suptitle(self.build_title(PlotType.TRAJ, self.s, self.v0, self.tt), fontsize=17)
+        fig.suptitle(self.build_title(PlotType.TRAJ, self.s, self.v0, self.tt), fontsize=14)
         if isinstance(self.save_fig, str):
             fig.savefig(self.save_fig)
         elif self.save_fig:
@@ -130,7 +129,7 @@ class Plotter:
                                      v0=step.current_vel(), tt=self.tt - step.current_time())
             title += " | {}".format(i)
             img_path_i = img_path + f"{i}.svg"
-            fig.suptitle(title, fontsize=17)
+            fig.suptitle(title, fontsize=14)
             if self.save_fig:
                 fig.savefig(img_path_i)
                 image_paths.append(img_path_i)
@@ -157,7 +156,7 @@ class Plotter:
 
         fig = plt.figure(figsize=(10, 5))
         ax = fig.add_subplot(111)
-        fig.suptitle(self.build_title(PlotType.DIFF_ALPHA, self.s, self.v0, self.tt))
+        fig.suptitle(self.build_title(PlotType.DIFF_ALPHA, self.s, self.v0, self.tt), fontsize=14)
         data = Simulator.create_alpha_data(self.config)
         self._fill_alpha(ax, data)
         ax.legend()
@@ -209,13 +208,11 @@ class Plotter:
         additional_ticks = []
         additional_tick_labels = []
 
-        def mark_time(t: float, pos: Optional[float], color: str, name):
-            if pos is not None:
-                ax_p.scatter(x=t, y=pos, color=color, marker="x", s=20 * 6)
-            else:
-                lim = ax_p.get_ylim()
-                ax_p.plot([t, t], [*lim], color=color)
-                ax_p.set_ylim(lim)
+        def mark_time(t: float, color: str, name):
+            lim = ax_p.get_ylim()
+            ax_p.plot([t, t], [*lim], color=color)
+            ax_p.set_ylim(lim)
+
             ax_v.plot([t, t], [-self.v_max - 0.25, self.v_max + 0.25], color=color)
             if ax_a is not None:
                 ax_a.plot([t, t], [-self.a_max - 0.25, self.a_max + 0.25], color=color)
@@ -223,20 +220,26 @@ class Plotter:
             additional_tick_labels.append(name)
 
         if self.tt is not None and s is not None:
-            mark_time(self.tt, s, "red", "\n$t_t$")
+            mark_time(self.tt, "red", "\n$t_t$")
 
-        mark_time(0, None, "gray", "\n$t_0$")
+        mark_time(0, "gray", "\n$t_0$")
         for i in range(sim_steps[-1].trajectory.numParts):
             part = sim_steps[-1].trajectory.parts[i]
             if np.isclose(part.t_end + 0.0001, additional_ticks[-1]):
-                additional_tick_labels[-1] += f"$,t_{i+1}$"
+                additional_tick_labels[-1] += f"$,t_{i + 1}$"
             else:
-                mark_time(part.t_end, None, "gray", f"\n$t_{i + 1}$")
+                mark_time(part.t_end, "gray", f"\n$t_{i + 1}$")
 
         ax_p.set_xticks(additional_ticks, additional_tick_labels, minor=True)
         ax_v.set_xticks(additional_ticks, additional_tick_labels, minor=True)
         if ax_a is not None:
             ax_a.set_xticks(additional_ticks, additional_tick_labels, minor=True, va="top")
+
+        if s is not None:
+            lim = ax_p.get_xlim()
+            ax_p.plot([*lim], [s, s], color="red")
+            ax_p.set_xlim(lim)
+            ax_p.set_yticks([s, ], ["$s_t$" if axis_name == "" else f"$s_{{t,{axis_name}}}$", ], minor=True)
 
     def _fill_2d(self, ax_3d, ax_alpha, sim_steps: List[SimStep2d]):
         passed_times = [sim_step.current_time() for sim_step in sim_steps]
@@ -260,7 +263,7 @@ class Plotter:
 
         if ax_alpha is not None:
             ax_alpha.set_xlabel("alpha [rad]")
-            ax_alpha.set_ylabel("time [s]")
+            ax_alpha.set_ylabel(r"total time [s]")
             ax_alpha.set_ylim([-1, 5])
             ax_alpha.set_xlim([-0.05, np.pi * 0.5 + 0.05])
             self._fill_alpha(ax_alpha, sim_steps[-1].alpha_data)
@@ -284,9 +287,9 @@ class Plotter:
             # 1D Trajectory
             sim_steps_1d = [step for step in sim_steps if isinstance(step, SimStep1d)]
             if draw_acc:
-                fig, (ax_p, ax_v, ax_a) = plt.subplots(1, 3, figsize=(12, 3.5))
+                fig, (ax_p, ax_v, ax_a) = plt.subplots(1, 3, figsize=(10, 3))
             else:
-                fig, (ax_p, ax_v) = plt.subplots(1, 2, figsize=(8, 3.5))
+                fig, (ax_p, ax_v) = plt.subplots(1, 2, figsize=(6.67, 3))
                 ax_a = None
             self._fill_1d(ax_p, ax_v, ax_a, s=self.s, sim_steps=sim_steps_1d)
 
@@ -297,7 +300,7 @@ class Plotter:
             sim_steps_y = [step.get_1d_y() for step in sim_steps_2d]
 
             if draw_acc:
-                fig = plt.figure(figsize=(12, 10.5))
+                fig = plt.figure(figsize=(10, 9))
                 ax_3d = fig.add_subplot(3, 3, (1, 2), projection="3d")
                 ax_alpha = fig.add_subplot(333)
                 self._fill_2d(ax_3d, ax_alpha, sim_steps=sim_steps_2d)
@@ -310,7 +313,7 @@ class Plotter:
                 ax_a = fig.add_subplot(339)
                 self._fill_1d(ax_p, ax_v, ax_a, sim_steps=sim_steps_y, s=self.s.y, axis_name="y ")
             else:
-                fig = plt.figure(figsize=(12, 10.5))
+                fig = plt.figure(figsize=(10, 9))
                 ax_3d = fig.add_subplot(3, 2, (1, 2), projection="3d")
                 self._fill_2d(ax_3d, None, sim_steps=sim_steps_2d)
                 ax_p = fig.add_subplot(323)
