@@ -1,0 +1,4 @@
+imageio~=2.31.5
+numpy~=1.26.1
+tqdm~=4.66.1
+matplotlib~=3.8.0
