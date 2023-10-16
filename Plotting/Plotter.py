@@ -1,6 +1,6 @@
 import os
 from dataclasses import dataclass
-from typing import Union, List, Tuple, Optional
+from typing import Union, List, Tuple, Optional, Dict
 
 import imageio as imageio
 import matplotlib.pyplot as plt
@@ -9,6 +9,7 @@ from matplotlib import rcParams
 
 from JavaClones.BangBangTrajectory1D import BBTrajectoryPart
 from JavaClones.Vec2 import Vec2
+from Plotting.ColorScheme import ColorScheme, CSNormal, CSBlackAndWhite
 from Plotting.PlotType import PlotType
 from Simulating.AlphaData import AlphaData
 from Simulating.SimConfig import SimConfig
@@ -23,6 +24,7 @@ class Plotter:
     config: SimConfig
     save_fig: bool
     show_fig: bool
+    cs: ColorScheme
 
     def __post_init__(self):
         assert isinstance(self.save_fig, bool) or self.save_fig != "", "save_fig can not be empty file name"
@@ -67,25 +69,45 @@ class Plotter:
             save_fig: Union[bool, str] = False,
             v_max_1d: Union[float, int, None] = None,
             a_max_1d: Union[float, int, None] = None,
+            cs: Union[bool, ColorScheme] = True,
     ):
-        return Plotter(
-            config=SimConfig(
-                s=s1 - s0,
-                v0=v0,
-                v_max=v_max,
-                a_max=a_max,
-                v_max_1d=v_max_1d,
-                a_max_1d=a_max_1d,
-                tt=tt,
-                primary_direction=primary_direction
-            ),
+        config = SimConfig(
+            s=s1 - s0,
+            v0=v0,
+            v_max=v_max,
+            a_max=a_max,
+            v_max_1d=v_max_1d,
+            a_max_1d=a_max_1d,
+            tt=tt,
+            primary_direction=primary_direction
+        )
+        return Plotter.plot_config(
+            config=config,
+            plot_type=plot_type,
+            show_fig=show_fig,
             save_fig=save_fig,
-            show_fig=show_fig
-        )._plot(plot_type=plot_type)
+            cs=cs,
+        )
 
     @staticmethod
-    def plot_config(config: SimConfig, plot_type: PlotType, show_fig: bool = True, save_fig: Union[bool, str] = False):
-        return Plotter(config=config, save_fig=save_fig, show_fig=show_fig)._plot(plot_type=plot_type)
+    def plot_config(config: SimConfig, plot_type: PlotType, show_fig: bool = True, save_fig: Union[bool, str] = False,
+                    cs: Union[bool, ColorScheme] = True, ):
+        _cs: ColorScheme
+        if isinstance(cs, ColorScheme):
+            _cs = cs
+        elif isinstance(cs, bool):
+            if cs:
+                _cs = CSNormal()
+            else:
+                _cs = CSBlackAndWhite()
+        else:
+            raise ValueError
+        return Plotter(
+            config=config,
+            save_fig=save_fig,
+            show_fig=show_fig,
+            cs=_cs
+        )._plot(plot_type=plot_type)
 
     def _plot(self, plot_type: PlotType):
         match plot_type:
@@ -176,59 +198,59 @@ class Plotter:
 
         ax_p.set_ylabel(f"Position {axis_name}[m]")
         ax_p.set_xlabel("time [s]")
-        ax_p.plot(sim_steps[0].times, sim_steps[0].pos, color="gray")
-        ax_p.scatter(times_passed, pos_passed, color="blue")
-        ax_p.plot(times_passed, pos_passed, color="blue")
-        ax_p.plot(sim_steps[-1].times, sim_steps[-1].pos, color="green")
+        ax_p.plot(sim_steps[0].times, sim_steps[0].pos, **self.cs.total)
+        ax_p.scatter(times_passed, pos_passed, **self.cs.passed)
+        ax_p.plot(times_passed, pos_passed, **self.cs.passed)
+        ax_p.plot(sim_steps[-1].times, sim_steps[-1].pos, **self.cs.pos)
         ax_p.grid(True)
 
         ax_v.set_ylim([-self.v_max - 0.25, self.v_max + 0.25])
         ax_v.set_ylabel(f"Velocity {axis_name}[m/s]")
         ax_v.set_xlabel("time [s]")
-        ax_v.plot([0, sim_steps[-1].times[-1]], [sim_steps[-1].v_max, sim_steps[-1].v_max], color="black")
-        ax_v.plot([0, sim_steps[-1].times[-1]], [-sim_steps[-1].v_max, -sim_steps[-1].v_max], color="black")
-        ax_v.plot(sim_steps[0].times, sim_steps[0].vel, color="gray")
-        ax_v.scatter(times_passed, vel_passed, color="blue")
-        ax_v.plot(times_passed, vel_passed, color="blue")
-        ax_v.plot(sim_steps[-1].times, sim_steps[-1].vel, color="red")
+        ax_v.plot([0, sim_steps[-1].times[-1]], [sim_steps[-1].v_max, sim_steps[-1].v_max], **self.cs.limit)
+        ax_v.plot([0, sim_steps[-1].times[-1]], [-sim_steps[-1].v_max, -sim_steps[-1].v_max], **self.cs.limit)
+        ax_v.plot(sim_steps[0].times, sim_steps[0].vel, **self.cs.total)
+        ax_v.scatter(times_passed, vel_passed, **self.cs.passed)
+        ax_v.plot(times_passed, vel_passed, **self.cs.passed)
+        ax_v.plot(sim_steps[-1].times, sim_steps[-1].vel, **self.cs.vel)
         ax_v.grid(True)
 
         if ax_a is not None:
             ax_a.set_ylim([-self.a_max - 0.25, self.a_max + 0.25])
             ax_a.set_ylabel(f"Acceleration {axis_name}[m/s²]")
             ax_a.set_xlabel("time [s]")
-            ax_a.plot([0, sim_steps[-1].times[-1]], [sim_steps[-1].a_max, sim_steps[-1].a_max], color="black")
-            ax_a.plot([0, sim_steps[-1].times[-1]], [-sim_steps[-1].a_max, -sim_steps[-1].a_max], color="black")
-            ax_a.plot(sim_steps[0].times, sim_steps[0].acc, color="gray")
-            ax_a.scatter(times_passed, acc_passed, color="blue")
-            ax_a.plot(times_passed, acc_passed, color="blue")
-            ax_a.plot(sim_steps[-1].times, sim_steps[-1].acc)
+            ax_a.plot([0, sim_steps[-1].times[-1]], [sim_steps[-1].a_max, sim_steps[-1].a_max], **self.cs.limit)
+            ax_a.plot([0, sim_steps[-1].times[-1]], [-sim_steps[-1].a_max, -sim_steps[-1].a_max], **self.cs.limit)
+            ax_a.plot(sim_steps[0].times, sim_steps[0].acc, **self.cs.total)
+            ax_a.scatter(times_passed, acc_passed, **self.cs.passed)
+            ax_a.plot(times_passed, acc_passed, **self.cs.passed)
+            ax_a.plot(sim_steps[-1].times, sim_steps[-1].acc, **self.cs.acc)
             ax_a.grid(True)
 
         additional_ticks = []
         additional_tick_labels = []
 
-        def mark_time(t: float, color: str, name):
+        def mark_time(t: float, name, **styling):
             lim = ax_p.get_ylim()
-            ax_p.plot([t, t], [*lim], color=color)
+            ax_p.plot([t, t], [*lim], **styling)
             ax_p.set_ylim(lim)
 
-            ax_v.plot([t, t], [-self.v_max - 0.25, self.v_max + 0.25], color=color)
+            ax_v.plot([t, t], [-self.v_max - 0.25, self.v_max + 0.25], **styling)
             if ax_a is not None:
-                ax_a.plot([t, t], [-self.a_max - 0.25, self.a_max + 0.25], color=color)
+                ax_a.plot([t, t], [-self.a_max - 0.25, self.a_max + 0.25], **styling)
             additional_ticks.append(t + 0.0001)
             additional_tick_labels.append(name)
 
         if self.tt is not None and s is not None:
-            mark_time(self.tt, "red", "\n$t_t$")
+            mark_time(self.tt, "\n$t_t$", **self.cs.target)
 
-        mark_time(0, "gray", "\n$t_0$")
+        mark_time(0, "\n$t_0$", **self.cs.marking)
         for i in range(sim_steps[-1].trajectory.numParts):
             part = sim_steps[-1].trajectory.parts[i]
             if np.isclose(part.t_end + 0.0001, additional_ticks[-1]):
                 additional_tick_labels[-1] += f"$,t_{i + 1}$"
             else:
-                mark_time(part.t_end, "gray", f"\n$t_{i + 1}$")
+                mark_time(part.t_end,f"\n$t_{i + 1}$", **self.cs.marking)
 
         ax_p.set_xticks(additional_ticks, additional_tick_labels, minor=True)
         ax_v.set_xticks(additional_ticks, additional_tick_labels, minor=True)
@@ -237,7 +259,7 @@ class Plotter:
 
         if s is not None:
             lim = ax_p.get_xlim()
-            ax_p.plot([*lim], [s, s], color="red")
+            ax_p.plot([*lim], [s, s], **self.cs.target)
             ax_p.set_xlim(lim)
             ax_p.set_yticks([s, ], ["$s_t$" if axis_name == "" else f"$s_{{t,{axis_name}}}$", ], minor=True)
 
@@ -255,10 +277,10 @@ class Plotter:
         ax_3d.set_xlabel("Position x [m]")
         ax_3d.set_ylabel("Position y [m]")
         ax_3d.set_zlabel("time [s]")
-        ax_3d.plot(total_x, total_y, sim_steps[0].times, color="gray")
-        ax_3d.scatter(passed_x, passed_y, passed_times, color="blue")
-        ax_3d.plot(passed_x, passed_y, passed_times, color="blue")
-        ax_3d.plot(future_x, future_y, sim_steps[-1].times, color="green")
+        ax_3d.plot(total_x, total_y, sim_steps[0].times, **self.cs.total)
+        ax_3d.scatter(passed_x, passed_y, passed_times, **self.cs.passed)
+        ax_3d.plot(passed_x, passed_y, passed_times, **self.cs.passed)
+        ax_3d.plot(future_x, future_y, sim_steps[-1].times, **self.cs.pos)
         ax_3d.grid(True)
 
         if ax_alpha is not None:
@@ -267,20 +289,19 @@ class Plotter:
             ax_alpha.set_ylim([-1, 5])
             ax_alpha.set_xlim([-0.05, np.pi * 0.5 + 0.05])
             self._fill_alpha(ax_alpha, sim_steps[-1].alpha_data)
-            ax_alpha.plot([sim_steps[-1].alpha, sim_steps[-1].alpha], [-5, 5], color="red", label="chosen", ls="--")
+            ax_alpha.plot([sim_steps[-1].alpha, sim_steps[-1].alpha], [-5, 5], label="chosen", **self.cs.a_chosen)
             ax_alpha.legend()
             ax_alpha.plot()
 
         if self.tt is not None:
-            ax_3d.scatter(self.s.x, self.s.y, self.tt, color="red", marker="x", s=20 * 6)
+            ax_3d.scatter(self.s.x, self.s.y, self.tt, marker="x", s=20 * 6, **self.cs.target)
 
-    @staticmethod
-    def _fill_alpha(ax_alpha, data: AlphaData):
+    def _fill_alpha(self, ax_alpha, data: AlphaData):
         ax_alpha.plot([-5, 5], [0, 0], color="gray")
-        ax_alpha.plot(data.alphas, data.diffs, label="|x-y|", color="orange")
-        ax_alpha.plot(data.alphas, data.x_times, label="x", color="blue")
-        ax_alpha.plot(data.alphas, data.y_times, label="y", color="cyan")
-        ax_alpha.plot([data.optimal, data.optimal], [-5, 5], color="green", label="optimal")
+        ax_alpha.plot(data.alphas, data.diffs, label="|x-y|", **self.cs.a_abs)
+        ax_alpha.plot(data.alphas, data.x_times, label="x", **self.cs.a_x)
+        ax_alpha.plot(data.alphas, data.y_times, label="y", **self.cs.a_y)
+        ax_alpha.plot([data.optimal, data.optimal], [-5, 5], label="optimal", **self.cs.a_optimal)
 
     def _draw_last_sim_steps_from_list(self, sim_steps: List[SimStep], draw_acc: bool) -> plt.Figure:
         if isinstance(sim_steps[0], SimStep1d):
